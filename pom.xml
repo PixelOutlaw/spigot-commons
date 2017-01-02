@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.pixeloutlaw</groupId>
+        <artifactId>spigot-plugin-parent</artifactId>
+        <version>1.11.2.1</version>
+    </parent>
+
+    <artifactId>spigot-commons-parent</artifactId>
+    <version>1.11.2.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-pixeloutlaw-pixeloutlaw-jars</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/pixeloutlaw/pixeloutlaw-jars</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>amp-menus</module>
+        <module>config</module>
+        <module>fanciful</module>
+        <module>hilt</module>
+        <module>mirror</module>
+        <module>spigot-commons</module>
+    </modules>
+
+</project>

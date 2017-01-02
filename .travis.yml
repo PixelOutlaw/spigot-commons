@@ -1,0 +1,7 @@
+language: java
+jdk:
+- oraclejdk8
+before_script:
+- wget https://gist.githubusercontent.com/Nunnery/c2fb7e52f83a37cefba9741a9022288d/raw/fe7ce79566c9b8db2336c8d732421f070167cd05/settings.xml
+script:
+- mvn clean deploy --settings settings.xml
