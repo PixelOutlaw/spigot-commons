@@ -34,6 +34,14 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-pixeloutlaw-pixeloutlaw-jars</id>
+            <name>pixeloutlaw-pixeloutlaw-jars</name>
+            <url>https://api.bintray.com/maven/pixeloutlaw/pixeloutlaw-jars/spigot-commons/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
     <modules>
         <module>amp-menus</module>
         <module>config</module>
