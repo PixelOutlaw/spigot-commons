@@ -22,52 +22,51 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.inventory.meta.BannerMeta;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class HiltBanner extends HiltItemStack {
 
-    public HiltBanner(Collection<Pattern> patterns, DyeColor color) {
-        super(Material.BANNER);
-        setPatterns(patterns);
-        setColor(color);
-    }
+  public HiltBanner(Collection<Pattern> patterns, DyeColor color) {
+    super(Material.BANNER);
+    setPatterns(patterns);
+    setColor(color);
+  }
 
-    public Collection<Pattern> getPatterns() {
-        createItemMeta();
-        if (getItemMeta() instanceof BannerMeta) {
-            return ((BannerMeta) getItemMeta()).getPatterns();
-        }
-        return new ArrayList<>();
+  public Collection<Pattern> getPatterns() {
+    createItemMeta();
+    if (getItemMeta() instanceof BannerMeta) {
+      return ((BannerMeta) getItemMeta()).getPatterns();
     }
+    return new ArrayList<>();
+  }
 
-    public HiltBanner setPatterns(Collection<Pattern> patterns) {
-        createItemMeta();
-        if (getItemMeta() instanceof BannerMeta) {
-            ((BannerMeta) getItemMeta()).setPatterns(new ArrayList<>(patterns));
-        }
-        return this;
+  public HiltBanner setPatterns(Collection<Pattern> patterns) {
+    createItemMeta();
+    if (getItemMeta() instanceof BannerMeta) {
+      ((BannerMeta) getItemMeta()).setPatterns(new ArrayList<>(patterns));
     }
+    return this;
+  }
 
-    public DyeColor getColor() {
-        createItemMeta();
-        if (getItemMeta() instanceof BannerMeta) {
-            return ((BannerMeta) getItemMeta()).getBaseColor();
-        }
-        return null;
+  public DyeColor getColor() {
+    createItemMeta();
+    if (getItemMeta() instanceof BannerMeta) {
+      return ((BannerMeta) getItemMeta()).getBaseColor();
     }
+    return null;
+  }
 
-    public HiltBanner setColor(DyeColor color) {
-        createItemMeta();
-        if (getItemMeta() instanceof BannerMeta) {
-            ((BannerMeta) getItemMeta()).setBaseColor(color);
-        }
-        return this;
+  public HiltBanner setColor(DyeColor color) {
+    createItemMeta();
+    if (getItemMeta() instanceof BannerMeta) {
+      ((BannerMeta) getItemMeta()).setBaseColor(color);
     }
+    return this;
+  }
 
 }

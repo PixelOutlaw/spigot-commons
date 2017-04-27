@@ -33,27 +33,28 @@ import org.bukkit.plugin.java.JavaPlugin;
  * A {@link MenuItem} that opens a sub {@link ninja.amp.ampmenus.menus.ItemMenu}.
  */
 public class SubMenuItem extends MenuItem {
-    private final JavaPlugin plugin;
-    private final ItemMenu menu;
 
-    public SubMenuItem(JavaPlugin plugin, String displayName, ItemStack icon, ItemMenu menu, String... lore) {
-        super(displayName, icon, lore);
-        this.plugin = plugin;
-        this.menu = menu;
-    }
+  private final JavaPlugin plugin;
+  private final ItemMenu menu;
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public void onItemClick(ItemClickEvent event) {
-        event.setWillClose(true);
-        final String playerName = event.getPlayer().getName();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            public void run() {
-                Player p = Bukkit.getPlayerExact(playerName);
-                if (p != null) {
-                    menu.open(p);
-                }
-            }
-        }, 3);
-    }
+  public SubMenuItem(JavaPlugin plugin, String displayName, ItemStack icon, ItemMenu menu, String... lore) {
+    super(displayName, icon, lore);
+    this.plugin = plugin;
+    this.menu = menu;
+  }
+
+  @Override
+  @SuppressWarnings("deprecation")
+  public void onItemClick(ItemClickEvent event) {
+    event.setWillClose(true);
+    final String playerName = event.getPlayer().getName();
+    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+      public void run() {
+        Player p = Bukkit.getPlayerExact(playerName);
+        if (p != null) {
+          menu.open(p);
+        }
+      }
+    }, 3);
+  }
 }

@@ -20,40 +20,39 @@
 package com.sk89q.squirrelid.resolver;
 
 import com.sk89q.squirrelid.Profile;
+import java.io.IOException;
+import javax.annotation.Nullable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
 
 /**
  * Checks the list of online players in Bukkit to find UUIDs.
  */
 public class BukkitPlayerService extends SingleRequestService {
 
-    private static final BukkitPlayerService INSTANCE = new BukkitPlayerService();
+  private static final BukkitPlayerService INSTANCE = new BukkitPlayerService();
 
-    private BukkitPlayerService() {
-    }
+  private BukkitPlayerService() {
+  }
 
-    @Override
-    public int getIdealRequestLimit() {
-        return Integer.MAX_VALUE;
-    }
+  public static BukkitPlayerService getInstance() {
+    return INSTANCE;
+  }
 
-    @Nullable
-    @Override
-    public Profile findByName(String name) throws IOException, InterruptedException {
-        Player player = Bukkit.getServer().getPlayerExact(name);
-        if (player != null) {
-            return new Profile(player.getUniqueId(), player.getName());
-        } else {
-            return null;
-        }
-    }
+  @Override
+  public int getIdealRequestLimit() {
+    return Integer.MAX_VALUE;
+  }
 
-    public static BukkitPlayerService getInstance() {
-        return INSTANCE;
+  @Nullable
+  @Override
+  public Profile findByName(String name) throws IOException, InterruptedException {
+    Player player = Bukkit.getServer().getPlayerExact(name);
+    if (player != null) {
+      return new Profile(player.getUniqueId(), player.getName());
+    } else {
+      return null;
     }
+  }
 
 }

@@ -22,43 +22,42 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 public class HiltEnchantStorage extends HiltItemStack {
 
-    public HiltEnchantStorage(Map<Enchantment, Integer> enchantmentMap) {
-        super(Material.ENCHANTED_BOOK);
-        setStoredEnchantments(enchantmentMap);
-    }
+  public HiltEnchantStorage(Map<Enchantment, Integer> enchantmentMap) {
+    super(Material.ENCHANTED_BOOK);
+    setStoredEnchantments(enchantmentMap);
+  }
 
-    public Map<Enchantment, Integer> getStoredEnchantments() {
-        createItemMeta();
-        if (getItemMeta() instanceof EnchantmentStorageMeta) {
-            return new HashMap<>(((EnchantmentStorageMeta) getItemMeta()).getStoredEnchants());
-        }
-        return new HashMap<>();
+  public Map<Enchantment, Integer> getStoredEnchantments() {
+    createItemMeta();
+    if (getItemMeta() instanceof EnchantmentStorageMeta) {
+      return new HashMap<>(((EnchantmentStorageMeta) getItemMeta()).getStoredEnchants());
     }
+    return new HashMap<>();
+  }
 
-    public HiltEnchantStorage setStoredEnchantments(Map<Enchantment, Integer> enchantments) {
-        createItemMeta();
-        if (getItemMeta() instanceof EnchantmentStorageMeta) {
-            if (((EnchantmentStorageMeta) getItemMeta()).hasStoredEnchants()) {
-                for (Map.Entry<Enchantment, Integer> entry : new HashSet<>(((EnchantmentStorageMeta) getItemMeta())
-                                                                                   .getStoredEnchants().entrySet())) {
-                    ((EnchantmentStorageMeta) getItemMeta()).removeStoredEnchant(entry.getKey());
-                }
-            }
-            for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-                ((EnchantmentStorageMeta) getItemMeta()).addStoredEnchant(entry.getKey(), entry.getValue(), true);
-            }
+  public HiltEnchantStorage setStoredEnchantments(Map<Enchantment, Integer> enchantments) {
+    createItemMeta();
+    if (getItemMeta() instanceof EnchantmentStorageMeta) {
+      if (((EnchantmentStorageMeta) getItemMeta()).hasStoredEnchants()) {
+        for (Map.Entry<Enchantment, Integer> entry : new HashSet<>(((EnchantmentStorageMeta) getItemMeta())
+            .getStoredEnchants().entrySet())) {
+          ((EnchantmentStorageMeta) getItemMeta()).removeStoredEnchant(entry.getKey());
         }
-        return this;
+      }
+      for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
+        ((EnchantmentStorageMeta) getItemMeta()).addStoredEnchant(entry.getKey(), entry.getValue(), true);
+      }
     }
+    return this;
+  }
 
 }

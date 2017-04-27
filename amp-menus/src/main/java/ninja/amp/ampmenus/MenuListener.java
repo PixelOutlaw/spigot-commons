@@ -40,77 +40,78 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Passes inventory click events to their menus for handling.
  */
 public class MenuListener implements Listener {
-    private Plugin plugin = null;
-    private static final MenuListener INSTANCE = new MenuListener();
 
-    private MenuListener() {
-    }
+  private static final MenuListener INSTANCE = new MenuListener();
+  private Plugin plugin = null;
 
-    /**
-     * Gets the {@link MenuListener} instance.
-     *
-     * @return The {@link MenuListener} instance.
-     */
-    public static MenuListener getInstance() {
-        return INSTANCE;
-    }
+  private MenuListener() {
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getWhoClicked() instanceof Player && event.getInventory().getHolder() instanceof MenuHolder) {
-            event.setCancelled(true);
-            ((MenuHolder) event.getInventory().getHolder()).getMenu().onInventoryClick(event);
+  /**
+   * Gets the {@link MenuListener} instance.
+   *
+   * @return The {@link MenuListener} instance.
+   */
+  public static MenuListener getInstance() {
+    return INSTANCE;
+  }
+
+  /**
+   * Closes all {@link ninja.amp.ampmenus.menus.ItemMenu}s currently open.
+   */
+  public static void closeOpenMenus() {
+    for (Player player : Bukkit.getOnlinePlayers()) {
+      if (player.getOpenInventory() != null) {
+        Inventory inventory = player.getOpenInventory().getTopInventory();
+        if (inventory.getHolder() instanceof MenuHolder) {
+          player.closeInventory();
         }
+      }
     }
+  }
 
-    /**
-     * Registers the events of the {@link MenuListener} to a plugin.
-     *
-     * @param plugin The plugin used to register the events.
-     */
-    public void register(JavaPlugin plugin) {
-        if (!isRegistered(plugin)) {
-            plugin.getServer().getPluginManager().registerEvents(INSTANCE, plugin);
-            this.plugin = plugin;
-        }
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void onInventoryClick(InventoryClickEvent event) {
+    if (event.getWhoClicked() instanceof Player && event.getInventory().getHolder() instanceof MenuHolder) {
+      event.setCancelled(true);
+      ((MenuHolder) event.getInventory().getHolder()).getMenu().onInventoryClick(event);
     }
+  }
 
-    /**
-     * Checks if the {@link MenuListener} is registered to a plugin.
-     *
-     * @param plugin The plugin.
-     * @return True if the {@link MenuListener} is registered to the plugin, else false.
-     */
-    public boolean isRegistered(JavaPlugin plugin) {
-        if (plugin.equals(this.plugin)) {
-            for (RegisteredListener listener : HandlerList.getRegisteredListeners(plugin)) {
-                if (listener.getListener().equals(INSTANCE)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+  /**
+   * Registers the events of the {@link MenuListener} to a plugin.
+   *
+   * @param plugin The plugin used to register the events.
+   */
+  public void register(JavaPlugin plugin) {
+    if (!isRegistered(plugin)) {
+      plugin.getServer().getPluginManager().registerEvents(INSTANCE, plugin);
+      this.plugin = plugin;
     }
+  }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPluginDisable(PluginDisableEvent event) {
-        if (event.getPlugin().equals(plugin)) {
-            closeOpenMenus();
-            plugin = null;
+  /**
+   * Checks if the {@link MenuListener} is registered to a plugin.
+   *
+   * @param plugin The plugin.
+   * @return True if the {@link MenuListener} is registered to the plugin, else false.
+   */
+  public boolean isRegistered(JavaPlugin plugin) {
+    if (plugin.equals(this.plugin)) {
+      for (RegisteredListener listener : HandlerList.getRegisteredListeners(plugin)) {
+        if (listener.getListener().equals(INSTANCE)) {
+          return true;
         }
+      }
     }
+    return false;
+  }
 
-    /**
-     * Closes all {@link ninja.amp.ampmenus.menus.ItemMenu}s currently open.
-     */
-    public static void closeOpenMenus() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getOpenInventory() != null) {
-                Inventory inventory = player.getOpenInventory().getTopInventory();
-                if (inventory.getHolder() instanceof MenuHolder) {
-                    player.closeInventory();
-                }
-            }
-        }
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onPluginDisable(PluginDisableEvent event) {
+    if (event.getPlugin().equals(plugin)) {
+      closeOpenMenus();
+      plugin = null;
     }
+  }
 }

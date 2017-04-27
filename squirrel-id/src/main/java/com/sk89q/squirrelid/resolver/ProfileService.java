@@ -22,56 +22,55 @@ package com.sk89q.squirrelid.resolver;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.sk89q.squirrelid.Profile;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
+import javax.annotation.Nullable;
 
 /**
  * Resolves names into UUIDs.
  */
 public interface ProfileService {
 
-    /**
-     * Get the optimal maximum number of profiles that can be found
-     * with one {@link #findAllByName(Iterable)} call.
-     *
-     * <p>{@link #findAllByName(Iterable)} (and similar) methods may split up
-     * requests into smaller ones to fit within one request. This method
-     * returns the ideal maximum number.</p>
-     *
-     * @return the number of profiles
-     */
-    int getIdealRequestLimit();
+  /**
+   * Get the optimal maximum number of profiles that can be found
+   * with one {@link #findAllByName(Iterable)} call.
+   *
+   * <p>{@link #findAllByName(Iterable)} (and similar) methods may split up
+   * requests into smaller ones to fit within one request. This method
+   * returns the ideal maximum number.</p>
+   *
+   * @return the number of profiles
+   */
+  int getIdealRequestLimit();
 
-    /**
-     * Query the profile server for the UUID of a name.
-     *
-     * @param name a name
-     * @return the profile of the user, otherwise {@code null}
-     * @throws IOException thrown on I/O error
-     * @throws InterruptedException thrown on interruption
-     */
-    @Nullable
-    Profile findByName(String name) throws IOException, InterruptedException;
+  /**
+   * Query the profile server for the UUID of a name.
+   *
+   * @param name a name
+   * @return the profile of the user, otherwise {@code null}
+   * @throws IOException thrown on I/O error
+   * @throws InterruptedException thrown on interruption
+   */
+  @Nullable
+  Profile findByName(String name) throws IOException, InterruptedException;
 
-    /**
-     * Query the profile server for UUIDs for the given names.
-     *
-     * @param names an iterable containing names to search
-     * @return a list of found profiles
-     * @throws IOException thrown on I/O error
-     * @throws InterruptedException thrown on interruption
-     */
-    ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException;
+  /**
+   * Query the profile server for UUIDs for the given names.
+   *
+   * @param names an iterable containing names to search
+   * @return a list of found profiles
+   * @throws IOException thrown on I/O error
+   * @throws InterruptedException thrown on interruption
+   */
+  ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException;
 
-    /**
-     * Query the profile server for UUIDs for the given names.
-     *
-     * @param names an iterable containing names to search
-     * @param consumer a consumer function that will receive discovered profiles
-     * @throws IOException thrown on I/O error
-     * @throws InterruptedException thrown on interruption
-     */
-    void findAllByName(Iterable<String> names, Predicate<Profile> consumer) throws IOException, InterruptedException;
+  /**
+   * Query the profile server for UUIDs for the given names.
+   *
+   * @param names an iterable containing names to search
+   * @param consumer a consumer function that will receive discovered profiles
+   * @throws IOException thrown on I/O error
+   * @throws InterruptedException thrown on interruption
+   */
+  void findAllByName(Iterable<String> names, Predicate<Profile> consumer) throws IOException, InterruptedException;
 
 }

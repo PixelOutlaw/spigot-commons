@@ -21,7 +21,6 @@ package com.sk89q.squirrelid.cache;
 
 import com.google.common.collect.ImmutableMap;
 import com.sk89q.squirrelid.Profile;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -33,27 +32,27 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class HashMapCache extends AbstractProfileCache {
 
-    // Cannot use Guava because the cache classes are still @Beta
-    // in Guava 10.0.1 and will change
-    private final ConcurrentMap<UUID, String> cache = new ConcurrentHashMap<UUID, String>();
+  // Cannot use Guava because the cache classes are still @Beta
+  // in Guava 10.0.1 and will change
+  private final ConcurrentMap<UUID, String> cache = new ConcurrentHashMap<UUID, String>();
 
-    @Override
-    public void putAll(Iterable<Profile> profiles) {
-        for (Profile profile : profiles) {
-            cache.put(profile.getUniqueId(), profile.getName());
-        }
+  @Override
+  public void putAll(Iterable<Profile> profiles) {
+    for (Profile profile : profiles) {
+      cache.put(profile.getUniqueId(), profile.getName());
     }
+  }
 
-    @Override
-    public ImmutableMap<UUID, Profile> getAllPresent(Iterable<UUID> uuids) {
-        Map<UUID, Profile> results = new HashMap<UUID, Profile>();
-        for (UUID uuid : uuids) {
-            String name = cache.get(uuid);
-            if (name != null) {
-                results.put(uuid, new Profile(uuid, name));
-            }
-        }
-        return ImmutableMap.copyOf(results);
+  @Override
+  public ImmutableMap<UUID, Profile> getAllPresent(Iterable<UUID> uuids) {
+    Map<UUID, Profile> results = new HashMap<UUID, Profile>();
+    for (UUID uuid : uuids) {
+      String name = cache.get(uuid);
+      if (name != null) {
+        results.put(uuid, new Profile(uuid, name));
+      }
     }
+    return ImmutableMap.copyOf(results);
+  }
 
 }

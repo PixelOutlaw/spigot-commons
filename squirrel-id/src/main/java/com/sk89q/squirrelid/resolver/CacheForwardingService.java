@@ -19,70 +19,70 @@
 
 package com.sk89q.squirrelid.resolver;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.sk89q.squirrelid.Profile;
 import com.sk89q.squirrelid.cache.ProfileCache;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.Nullable;
 
 /**
  * Resolves UUIDs using another resolver and stores results to a cache.
  */
 public class CacheForwardingService implements ProfileService {
 
-    private final ProfileService resolver;
-    private final ProfileCache cache;
+  private final ProfileService resolver;
+  private final ProfileCache cache;
 
-    /**
-     * Create a new instance.
-     *
-     * @param resolver the resolver to use
-     * @param cache the cache to use
-     */
-    public CacheForwardingService(ProfileService resolver, ProfileCache cache) {
-        checkNotNull(resolver);
-        checkNotNull(cache);
+  /**
+   * Create a new instance.
+   *
+   * @param resolver the resolver to use
+   * @param cache the cache to use
+   */
+  public CacheForwardingService(ProfileService resolver, ProfileCache cache) {
+    checkNotNull(resolver);
+    checkNotNull(cache);
 
-        this.resolver = resolver;
-        this.cache = cache;
+    this.resolver = resolver;
+    this.cache = cache;
+  }
+
+  @Override
+  public int getIdealRequestLimit() {
+    return resolver.getIdealRequestLimit();
+  }
+
+  @Nullable
+  @Override
+  public Profile findByName(String name) throws IOException, InterruptedException {
+    Profile profile = resolver.findByName(name);
+    if (profile != null) {
+      cache.put(profile);
     }
+    return profile;
+  }
 
-    @Override
-    public int getIdealRequestLimit() {
-        return resolver.getIdealRequestLimit();
+  @Override
+  public ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
+    ImmutableList<Profile> profiles = resolver.findAllByName(names);
+    for (Profile profile : profiles) {
+      cache.put(profile);
     }
+    return profiles;
+  }
 
-    @Nullable
-    @Override
-    public Profile findByName(String name) throws IOException, InterruptedException {
-        Profile profile = resolver.findByName(name);
-        if (profile != null) {
-            cache.put(profile);
-        }
-        return profile;
-    }
-
-    @Override
-    public ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
-        ImmutableList<Profile> profiles = resolver.findAllByName(names);
-        for (Profile profile : profiles) {
-            cache.put(profile);
-        }
-        return profiles;
-    }
-
-    @Override
-    public void findAllByName(Iterable<String> names, final Predicate<Profile> consumer) throws IOException, InterruptedException {
-        resolver.findAllByName(names, new Predicate<Profile>() {
-            @Override
-            public boolean apply(@Nullable Profile input) {
-                cache.put(input);
-                return consumer.apply(input);
-            }
-        });
-    }
+  @Override
+  public void findAllByName(Iterable<String> names, final Predicate<Profile> consumer)
+      throws IOException, InterruptedException {
+    resolver.findAllByName(names, new Predicate<Profile>() {
+      @Override
+      public boolean apply(@Nullable Profile input) {
+        cache.put(input);
+        return consumer.apply(input);
+      }
+    });
+  }
 }

@@ -22,50 +22,49 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class HiltPotion extends HiltItemStack {
 
-    public HiltPotion(PotionEffectType mainEffectType, Collection<PotionEffect> effects) {
-        super(Material.POTION);
-        setMainEffectType(mainEffectType);
-        setEffects(effects);
-    }
+  public HiltPotion(PotionEffectType mainEffectType, Collection<PotionEffect> effects) {
+    super(Material.POTION);
+    setMainEffectType(mainEffectType);
+    setEffects(effects);
+  }
 
-    public HiltPotion setMainEffectType(PotionEffectType type) {
-        createItemMeta();
-        if (getItemMeta() instanceof PotionMeta) {
-            ((PotionMeta) getItemMeta()).setMainEffect(type);
-        }
-        return this;
+  public HiltPotion setMainEffectType(PotionEffectType type) {
+    createItemMeta();
+    if (getItemMeta() instanceof PotionMeta) {
+      ((PotionMeta) getItemMeta()).setMainEffect(type);
     }
+    return this;
+  }
 
-    public List<PotionEffect> getEffects() {
-        createItemMeta();
-        if (getItemMeta() instanceof PotionMeta && ((PotionMeta) getItemMeta()).hasCustomEffects()) {
-            return new ArrayList<>(((PotionMeta) getItemMeta()).getCustomEffects());
-        }
-        return new ArrayList<>();
+  public List<PotionEffect> getEffects() {
+    createItemMeta();
+    if (getItemMeta() instanceof PotionMeta && ((PotionMeta) getItemMeta()).hasCustomEffects()) {
+      return new ArrayList<>(((PotionMeta) getItemMeta()).getCustomEffects());
     }
+    return new ArrayList<>();
+  }
 
-    public HiltPotion setEffects(Collection<PotionEffect> effects) {
-        createItemMeta();
-        if (getItemMeta() instanceof PotionMeta) {
-            if (((PotionMeta) getItemMeta()).hasCustomEffects()) {
-                ((PotionMeta) getItemMeta()).clearCustomEffects();
-            }
-            for (PotionEffect potionEffect : effects) {
-                ((PotionMeta) getItemMeta()).addCustomEffect(potionEffect, false);
-            }
-        }
-        return this;
+  public HiltPotion setEffects(Collection<PotionEffect> effects) {
+    createItemMeta();
+    if (getItemMeta() instanceof PotionMeta) {
+      if (((PotionMeta) getItemMeta()).hasCustomEffects()) {
+        ((PotionMeta) getItemMeta()).clearCustomEffects();
+      }
+      for (PotionEffect potionEffect : effects) {
+        ((PotionMeta) getItemMeta()).addCustomEffect(potionEffect, false);
+      }
     }
+    return this;
+  }
 
 }

@@ -27,25 +27,25 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class HiltSkull extends HiltItemStack {
 
-    public HiltSkull(String owner) {
-        super(Material.SKULL_ITEM);
-        setOwner(owner);
-    }
+  public HiltSkull(String owner) {
+    super(Material.SKULL_ITEM);
+    setOwner(owner);
+  }
 
-    public String getOwner() {
-        createItemMeta();
-        if (getItemMeta() instanceof SkullMeta && ((SkullMeta) getItemMeta()).hasOwner()) {
-            return ((SkullMeta) getItemMeta()).getOwner();
-        }
-        return "";
+  public String getOwner() {
+    createItemMeta();
+    if (getItemMeta() instanceof SkullMeta && ((SkullMeta) getItemMeta()).hasOwner()) {
+      return ((SkullMeta) getItemMeta()).getOwner();
     }
+    return "";
+  }
 
-    public HiltSkull setOwner(String owner) {
-        createItemMeta();
-        if (getItemMeta() instanceof SkullMeta) {
-            ((SkullMeta) getItemMeta()).setOwner(owner);
-        }
-        return this;
+  public HiltSkull setOwner(String owner) {
+    createItemMeta();
+    if (getItemMeta() instanceof SkullMeta) {
+      ((SkullMeta) getItemMeta()).setOwner(owner);
     }
+    return this;
+  }
 
 }

@@ -22,18 +22,17 @@
  */
 package io.pixeloutlaw.minecraft.spigot.config;
 
-import org.bukkit.configuration.Configuration;
-
 import java.io.File;
+import org.bukkit.configuration.Configuration;
 
 public interface SmartConfiguration extends Configuration {
 
-    void load();
+  void load();
 
-    void save();
+  void save();
 
-    File getFile();
+  File getFile();
 
-    String getFileName();
+  String getFileName();
 
 }

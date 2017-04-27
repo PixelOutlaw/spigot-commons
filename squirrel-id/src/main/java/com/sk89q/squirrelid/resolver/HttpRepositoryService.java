@@ -19,6 +19,9 @@
 
 package com.sk89q.squirrelid.resolver;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
@@ -26,8 +29,6 @@ import com.google.common.collect.Iterables;
 import com.sk89q.squirrelid.Profile;
 import com.sk89q.squirrelid.util.HttpRequest;
 import com.sk89q.squirrelid.util.UUIDs;
-
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,193 +38,192 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import javax.annotation.Nullable;
 
 /**
  * Resolves names in bulk to UUIDs using Mojang's profile HTTP API.
  */
 public class HttpRepositoryService implements ProfileService {
 
-    public static final String MINECRAFT_AGENT = "Minecraft";
+  public static final String MINECRAFT_AGENT = "Minecraft";
 
-    private static final Logger log = Logger.getLogger(HttpRepositoryService.class.getCanonicalName());
-    private static final int MAX_NAMES_PER_REQUEST = 100;
+  private static final Logger log = Logger.getLogger(HttpRepositoryService.class.getCanonicalName());
+  private static final int MAX_NAMES_PER_REQUEST = 100;
 
-    private final URL profilesURL;
-    private int maxRetries = 5;
-    private long retryDelay = 50;
+  private final URL profilesURL;
+  private int maxRetries = 5;
+  private long retryDelay = 50;
 
-    /**
-     * Create a new resolver.
-     *
-     * <p>For Minecraft, use the {@link #MINECRAFT_AGENT} constant. The UUID
-     * to name mapping is only available if a user owns the game for the
-     * provided "agent," so an incorrect agent may return zero results or
-     * incorrect results.</p>
-     *
-     * @param agent the agent (i.e. the game)
-     */
-    public HttpRepositoryService(String agent) {
-        checkNotNull(agent);
-        profilesURL = HttpRequest.url("https://api.mojang.com/profiles/" + agent);
-    }
+  /**
+   * Create a new resolver.
+   *
+   * <p>For Minecraft, use the {@link #MINECRAFT_AGENT} constant. The UUID
+   * to name mapping is only available if a user owns the game for the
+   * provided "agent," so an incorrect agent may return zero results or
+   * incorrect results.</p>
+   *
+   * @param agent the agent (i.e. the game)
+   */
+  public HttpRepositoryService(String agent) {
+    checkNotNull(agent);
+    profilesURL = HttpRequest.url("https://api.mojang.com/profiles/" + agent);
+  }
 
-    /**
-     * Get the maximum number of HTTP request retries.
-     *
-     * @return the maximum number of retries
-     */
-    public int getMaxRetries() {
-        return maxRetries;
-    }
+  @Nullable
+  @SuppressWarnings("unchecked")
+  private static Profile decodeResult(Object entry) {
+    try {
+      if (entry instanceof Map) {
+        Map<Object, Object> mapEntry = (Map<Object, Object>) entry;
+        Object rawUuid = mapEntry.get("id");
+        Object rawName = mapEntry.get("name");
 
-    /**
-     * Set the maximum number of HTTP request retries.
-     *
-     * @param maxRetries the maximum number of retries
-     */
-    public void setMaxRetries(int maxRetries) {
-        checkArgument(maxRetries > 0, "maxRetries must be >= 0");
-        this.maxRetries = maxRetries;
-    }
-
-    /**
-     * Get the number of milliseconds to delay after each failed HTTP request,
-     * doubling each time until success or total failure.
-     *
-     * @return delay in milliseconds
-     */
-    public long getRetryDelay() {
-        return retryDelay;
-    }
-
-    /**
-     * Set the number of milliseconds to delay after each failed HTTP request,
-     * doubling each time until success or total failure.
-     *
-     * @param retryDelay delay in milliseconds
-     */
-    public void setRetryDelay(long retryDelay) {
-        this.retryDelay = retryDelay;
-    }
-
-    @Override
-    public int getIdealRequestLimit() {
-        return MAX_NAMES_PER_REQUEST;
-    }
-
-    @Nullable
-    @Override
-    public Profile findByName(String name) throws IOException, InterruptedException {
-        ImmutableList<Profile> profiles = findAllByName(Arrays.asList(name));
-        if (!profiles.isEmpty()) {
-            return profiles.get(0);
-        } else {
-            return null;
+        if (rawUuid != null && rawName != null) {
+          UUID uuid = UUID.fromString(UUIDs.addDashes(String.valueOf(rawUuid)));
+          String name = String.valueOf(rawName);
+          return new Profile(uuid, name);
         }
+      }
+    } catch (ClassCastException e) {
+      log.log(Level.WARNING, "Got invalid value from UUID lookup service", e);
+    } catch (IllegalArgumentException e) {
+      log.log(Level.WARNING, "Got invalid value from UUID lookup service", e);
     }
 
-    @Override
-    public void findAllByName(Iterable<String> names, Predicate<Profile> consumer) throws IOException, InterruptedException {
-        for (List<String> partition : Iterables.partition(names, MAX_NAMES_PER_REQUEST)) {
-            for (Profile profile : query(partition)) {
-                consumer.apply(profile);
-            }
-        }
+    return null;
+  }
+
+  /**
+   * Create a resolver for Minecraft.
+   *
+   * @return a UUID resolver
+   */
+  public static ProfileService forMinecraft() {
+    return new HttpRepositoryService(MINECRAFT_AGENT);
+  }
+
+  /**
+   * Get the maximum number of HTTP request retries.
+   *
+   * @return the maximum number of retries
+   */
+  public int getMaxRetries() {
+    return maxRetries;
+  }
+
+  /**
+   * Set the maximum number of HTTP request retries.
+   *
+   * @param maxRetries the maximum number of retries
+   */
+  public void setMaxRetries(int maxRetries) {
+    checkArgument(maxRetries > 0, "maxRetries must be >= 0");
+    this.maxRetries = maxRetries;
+  }
+
+  /**
+   * Get the number of milliseconds to delay after each failed HTTP request,
+   * doubling each time until success or total failure.
+   *
+   * @return delay in milliseconds
+   */
+  public long getRetryDelay() {
+    return retryDelay;
+  }
+
+  /**
+   * Set the number of milliseconds to delay after each failed HTTP request,
+   * doubling each time until success or total failure.
+   *
+   * @param retryDelay delay in milliseconds
+   */
+  public void setRetryDelay(long retryDelay) {
+    this.retryDelay = retryDelay;
+  }
+
+  @Override
+  public int getIdealRequestLimit() {
+    return MAX_NAMES_PER_REQUEST;
+  }
+
+  @Nullable
+  @Override
+  public Profile findByName(String name) throws IOException, InterruptedException {
+    ImmutableList<Profile> profiles = findAllByName(Arrays.asList(name));
+    if (!profiles.isEmpty()) {
+      return profiles.get(0);
+    } else {
+      return null;
     }
+  }
 
-    @Override
-    public ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
-        Builder<Profile> builder = ImmutableList.builder();
-        for (List<String> partition : Iterables.partition(names, MAX_NAMES_PER_REQUEST)) {
-            builder.addAll(query(partition));
-        }
-        return builder.build();
+  @Override
+  public void findAllByName(Iterable<String> names, Predicate<Profile> consumer)
+      throws IOException, InterruptedException {
+    for (List<String> partition : Iterables.partition(names, MAX_NAMES_PER_REQUEST)) {
+      for (Profile profile : query(partition)) {
+        consumer.apply(profile);
+      }
     }
+  }
 
-    /**
-     * Perform a query for profiles without partitioning the queries.
-     *
-     * @param names an iterable of names
-     * @return a list of results
-     * @throws IOException thrown on I/O error
-     * @throws InterruptedException thrown on interruption
-     */
-    protected ImmutableList<Profile> query(Iterable<String> names) throws IOException, InterruptedException {
-        List<Profile> profiles = new ArrayList<Profile>();
-
-        Object result;
-
-        int retriesLeft = maxRetries;
-        long retryDelay = this.retryDelay;
-
-        while (true) {
-            try {
-                result = HttpRequest
-                        .post(profilesURL)
-                        .bodyJson(names)
-                        .execute()
-                        .returnContent()
-                        .asJson();
-                break;
-            } catch (IOException e) {
-                if (retriesLeft == 0) {
-                    throw e;
-                }
-
-                log.log(Level.WARNING, "Failed to query profile service -- retrying...", e);
-                Thread.sleep(retryDelay);
-            }
-
-            retryDelay *= 2;
-            retriesLeft--;
-        }
-
-        if (result instanceof Iterable) {
-            for (Object entry : (Iterable) result) {
-                Profile profile = decodeResult(entry);
-                if (profile != null) {
-                    profiles.add(profile);
-                }
-            }
-        }
-
-        return ImmutableList.copyOf(profiles);
+  @Override
+  public ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
+    Builder<Profile> builder = ImmutableList.builder();
+    for (List<String> partition : Iterables.partition(names, MAX_NAMES_PER_REQUEST)) {
+      builder.addAll(query(partition));
     }
+    return builder.build();
+  }
 
-    @Nullable
-    @SuppressWarnings("unchecked")
-    private static Profile decodeResult(Object entry) {
-        try {
-            if (entry instanceof Map) {
-                Map<Object, Object> mapEntry = (Map<Object, Object>) entry;
-                Object rawUuid = mapEntry.get("id");
-                Object rawName = mapEntry.get("name");
+  /**
+   * Perform a query for profiles without partitioning the queries.
+   *
+   * @param names an iterable of names
+   * @return a list of results
+   * @throws IOException thrown on I/O error
+   * @throws InterruptedException thrown on interruption
+   */
+  protected ImmutableList<Profile> query(Iterable<String> names) throws IOException, InterruptedException {
+    List<Profile> profiles = new ArrayList<Profile>();
 
-                if (rawUuid != null && rawName != null) {
-                    UUID uuid = UUID.fromString(UUIDs.addDashes(String.valueOf(rawUuid)));
-                    String name = String.valueOf(rawName);
-                    return new Profile(uuid, name);
-                }
-            }
-        } catch (ClassCastException e) {
-            log.log(Level.WARNING, "Got invalid value from UUID lookup service", e);
-        } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, "Got invalid value from UUID lookup service", e);
+    Object result;
+
+    int retriesLeft = maxRetries;
+    long retryDelay = this.retryDelay;
+
+    while (true) {
+      try {
+        result = HttpRequest
+            .post(profilesURL)
+            .bodyJson(names)
+            .execute()
+            .returnContent()
+            .asJson();
+        break;
+      } catch (IOException e) {
+        if (retriesLeft == 0) {
+          throw e;
         }
 
-        return null;
+        log.log(Level.WARNING, "Failed to query profile service -- retrying...", e);
+        Thread.sleep(retryDelay);
+      }
+
+      retryDelay *= 2;
+      retriesLeft--;
     }
 
-    /**
-     * Create a resolver for Minecraft.
-     *
-     * @return a UUID resolver
-     */
-    public static ProfileService forMinecraft() {
-        return new HttpRepositoryService(MINECRAFT_AGENT);
+    if (result instanceof Iterable) {
+      for (Object entry : (Iterable) result) {
+        Profile profile = decodeResult(entry);
+        if (profile != null) {
+          profiles.add(profile);
+        }
+      }
     }
+
+    return ImmutableList.copyOf(profiles);
+  }
 
 }

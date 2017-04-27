@@ -23,7 +23,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.sk89q.squirrelid.Profile;
-
 import java.io.IOException;
 
 /**
@@ -32,26 +31,27 @@ import java.io.IOException;
  */
 abstract class SingleRequestService implements ProfileService {
 
-    @Override
-    public final ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
-        Builder<Profile> builder = ImmutableList.builder();
-        for (String name : names) {
-            Profile profile = findByName(name);
-            if (profile != null) {
-                builder.add(profile);
-            }
-        }
-        return builder.build();
+  @Override
+  public final ImmutableList<Profile> findAllByName(Iterable<String> names) throws IOException, InterruptedException {
+    Builder<Profile> builder = ImmutableList.builder();
+    for (String name : names) {
+      Profile profile = findByName(name);
+      if (profile != null) {
+        builder.add(profile);
+      }
     }
+    return builder.build();
+  }
 
-    @Override
-    public final void findAllByName(Iterable<String> names, Predicate<Profile> consumer) throws IOException, InterruptedException {
-        for (String name : names) {
-            Profile profile = findByName(name);
-            if (profile != null) {
-                consumer.apply(profile);
-            }
-        }
+  @Override
+  public final void findAllByName(Iterable<String> names, Predicate<Profile> consumer)
+      throws IOException, InterruptedException {
+    for (String name : names) {
+      Profile profile = findByName(name);
+      if (profile != null) {
+        consumer.apply(profile);
+      }
     }
+  }
 
 }
