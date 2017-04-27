@@ -28,42 +28,42 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 public class HiltLeatherArmor extends HiltItemStack {
 
-    public HiltLeatherArmor(LeatherArmorType type, Color color) {
-        super(type.getMat());
-        setColor(color);
+  public HiltLeatherArmor(LeatherArmorType type, Color color) {
+    super(type.getMat());
+    setColor(color);
+  }
+
+  public Color getColor() {
+    createItemMeta();
+    if (getItemMeta() instanceof LeatherArmorMeta) {
+      return ((LeatherArmorMeta) getItemMeta()).getColor();
+    }
+    return null;
+  }
+
+  public HiltLeatherArmor setColor(Color color) {
+    createItemMeta();
+    if (getItemMeta() instanceof LeatherArmorMeta) {
+      ((LeatherArmorMeta) getItemMeta()).setColor(color);
+    }
+    return this;
+  }
+
+  enum LeatherArmorType {
+    HELMET(Material.LEATHER_HELMET),
+    CHESTPLATE(Material.LEATHER_CHESTPLATE),
+    LEGGINGS(Material.LEATHER_LEGGINGS),
+    BOOTS(Material.LEATHER_BOOTS);
+
+    private final Material mat;
+
+    private LeatherArmorType(Material mat) {
+      this.mat = mat;
     }
 
-    public Color getColor() {
-        createItemMeta();
-        if (getItemMeta() instanceof LeatherArmorMeta) {
-            return ((LeatherArmorMeta) getItemMeta()).getColor();
-        }
-        return null;
+    public Material getMat() {
+      return mat;
     }
-
-    public HiltLeatherArmor setColor(Color color) {
-        createItemMeta();
-        if (getItemMeta() instanceof LeatherArmorMeta) {
-            ((LeatherArmorMeta) getItemMeta()).setColor(color);
-        }
-        return this;
-    }
-
-    enum LeatherArmorType {
-        HELMET(Material.LEATHER_HELMET),
-        CHESTPLATE(Material.LEATHER_CHESTPLATE),
-        LEGGINGS(Material.LEATHER_LEGGINGS),
-        BOOTS(Material.LEATHER_BOOTS);
-
-        private final Material mat;
-
-        private LeatherArmorType(Material mat) {
-            this.mat = mat;
-        }
-
-        public Material getMat() {
-            return mat;
-        }
-    }
+  }
 
 }

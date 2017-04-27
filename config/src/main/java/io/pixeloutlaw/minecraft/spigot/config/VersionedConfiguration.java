@@ -24,16 +24,16 @@ package io.pixeloutlaw.minecraft.spigot.config;
 
 public interface VersionedConfiguration {
 
-    String getVersion();
+  String getVersion();
 
-    String getLocalVersion();
+  String getLocalVersion();
 
-    boolean needsToUpdate();
+  boolean needsToUpdate();
 
-    boolean update();
+  boolean update();
 
-    enum VersionUpdateType {
-        BACKUP_NO_UPDATE, BACKUP_AND_UPDATE, BACKUP_AND_NEW, NOTHING
-    }
+  enum VersionUpdateType {
+    BACKUP_NO_UPDATE, BACKUP_AND_UPDATE, BACKUP_AND_NEW, NOTHING
+  }
 
 }

@@ -27,27 +27,28 @@ import java.util.regex.Pattern;
  */
 public final class UUIDs {
 
-    private static final Pattern DASHLESS_PATTERN = Pattern.compile("^([A-Fa-f0-9]{8})([A-Fa-f0-9]{4})([A-Fa-f0-9]{4})([A-Fa-f0-9]{4})([A-Fa-f0-9]{12})$");
+  private static final Pattern DASHLESS_PATTERN = Pattern
+      .compile("^([A-Fa-f0-9]{8})([A-Fa-f0-9]{4})([A-Fa-f0-9]{4})([A-Fa-f0-9]{4})([A-Fa-f0-9]{12})$");
 
-    private UUIDs() {
-    }
+  private UUIDs() {
+  }
 
-    /**
-     * Add dashes to a UUID.
-     *
-     * <p>If dashes already exist, the same UUID will be returned.</p>
-     *
-     * @param uuid the UUID
-     * @return a UUID with dashes
-     * @throws IllegalArgumentException thrown if the given input is not actually an UUID
-     */
-    public static String addDashes(String uuid) {
-        uuid = uuid.replace("-", ""); // Remove dashes
-        Matcher matcher = DASHLESS_PATTERN.matcher(uuid);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid UUID format");
-        }
-        return matcher.replaceAll("$1-$2-$3-$4-$5");
+  /**
+   * Add dashes to a UUID.
+   *
+   * <p>If dashes already exist, the same UUID will be returned.</p>
+   *
+   * @param uuid the UUID
+   * @return a UUID with dashes
+   * @throws IllegalArgumentException thrown if the given input is not actually an UUID
+   */
+  public static String addDashes(String uuid) {
+    uuid = uuid.replace("-", ""); // Remove dashes
+    Matcher matcher = DASHLESS_PATTERN.matcher(uuid);
+    if (!matcher.matches()) {
+      throw new IllegalArgumentException("Invalid UUID format");
     }
+    return matcher.replaceAll("$1-$2-$3-$4-$5");
+  }
 
 }

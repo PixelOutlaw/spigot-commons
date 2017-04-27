@@ -32,5 +32,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface Wildcard {
-	boolean join() default true;
+
+  boolean join() default true;
 }

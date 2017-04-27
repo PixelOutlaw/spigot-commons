@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.pixeloutlaw</groupId>
-        <artifactId>spigot-commons-parent</artifactId>
-        <version>1.11.2.3-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>fanciful</artifactId>
+  <parent>
+    <groupId>io.pixeloutlaw</groupId>
+    <artifactId>spigot-commons-parent</artifactId>
     <version>1.11.2.3-SNAPSHOT</version>
+  </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.pixeloutlaw</groupId>
-            <artifactId>hilt</artifactId>
-            <version>1.11.2.3-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+  <artifactId>fanciful</artifactId>
+  <version>1.11.2.3-SNAPSHOT</version>
 
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>${project.build.javaVersion}</source>
-                    <target>${project.build.javaVersion}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.pixeloutlaw</groupId>
+      <artifactId>hilt</artifactId>
+      <version>1.11.2.3-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.javaVersion>1.7</project.build.javaVersion>
-    </properties>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <resources>
+      <resource>
+        <targetPath>.</targetPath>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>${project.build.javaVersion}</source>
+          <target>${project.build.javaVersion}</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.javaVersion>1.7</project.build.javaVersion>
+  </properties>
 
 </project>

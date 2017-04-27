@@ -32,12 +32,12 @@ import org.bukkit.inventory.ItemStack;
  */
 public class CloseItem extends StaticMenuItem {
 
-    public CloseItem() {
-        super(ChatColor.RED + "Close", new ItemStack(Material.RECORD_4));
-    }
+  public CloseItem() {
+    super(ChatColor.RED + "Close", new ItemStack(Material.RECORD_4));
+  }
 
-    @Override
-    public void onItemClick(ItemClickEvent event) {
-        event.setWillClose(true);
-    }
+  @Override
+  public void onItemClick(ItemClickEvent event) {
+    event.setWillClose(true);
+  }
 }

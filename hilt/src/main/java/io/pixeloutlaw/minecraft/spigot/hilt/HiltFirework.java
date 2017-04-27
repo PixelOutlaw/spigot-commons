@@ -22,52 +22,51 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 public class HiltFirework extends HiltItemStack {
 
-    public HiltFirework(Collection<FireworkEffect> fireworkEffects, int power) {
-        super(Material.FIREWORK);
-        setFireworkEffects(fireworkEffects);
-        setPower(power);
-    }
+  public HiltFirework(Collection<FireworkEffect> fireworkEffects, int power) {
+    super(Material.FIREWORK);
+    setFireworkEffects(fireworkEffects);
+    setPower(power);
+  }
 
-    public int getPower() {
-        createItemMeta();
-        if (getItemMeta() instanceof FireworkMeta) {
-            return ((FireworkMeta) getItemMeta()).getPower();
-        }
-        return 0;
+  public int getPower() {
+    createItemMeta();
+    if (getItemMeta() instanceof FireworkMeta) {
+      return ((FireworkMeta) getItemMeta()).getPower();
     }
+    return 0;
+  }
 
-    public HiltFirework setPower(int power) {
-        createItemMeta();
-        if (getItemMeta() instanceof FireworkMeta) {
-            ((FireworkMeta) getItemMeta()).setPower(power);
-        }
-        return this;
+  public HiltFirework setPower(int power) {
+    createItemMeta();
+    if (getItemMeta() instanceof FireworkMeta) {
+      ((FireworkMeta) getItemMeta()).setPower(power);
     }
+    return this;
+  }
 
-    public List<FireworkEffect> getFireworkEffects() {
-        createItemMeta();
-        if (getItemMeta() instanceof FireworkMeta && ((FireworkMeta) getItemMeta()).hasEffects()) {
-            return new ArrayList<>(((FireworkMeta) getItemMeta()).getEffects());
-        }
-        return new ArrayList<>();
+  public List<FireworkEffect> getFireworkEffects() {
+    createItemMeta();
+    if (getItemMeta() instanceof FireworkMeta && ((FireworkMeta) getItemMeta()).hasEffects()) {
+      return new ArrayList<>(((FireworkMeta) getItemMeta()).getEffects());
     }
+    return new ArrayList<>();
+  }
 
-    public HiltFirework setFireworkEffects(Collection<FireworkEffect> effects) {
-        createItemMeta();
-        if (getItemMeta() instanceof FireworkMeta) {
-            ((FireworkMeta) getItemMeta()).addEffects(effects);
-        }
-        return this;
+  public HiltFirework setFireworkEffects(Collection<FireworkEffect> effects) {
+    createItemMeta();
+    if (getItemMeta() instanceof FireworkMeta) {
+      ((FireworkMeta) getItemMeta()).addEffects(effects);
     }
+    return this;
+  }
 
 }

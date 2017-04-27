@@ -27,22 +27,22 @@ import org.bukkit.inventory.meta.MapMeta;
 
 public class HiltMap extends HiltItemStack {
 
-    public HiltMap(boolean scalable) {
-        super(Material.MAP);
-        setScalable(scalable);
-    }
+  public HiltMap(boolean scalable) {
+    super(Material.MAP);
+    setScalable(scalable);
+  }
 
-    public boolean isScalable() {
-        createItemMeta();
-        return getItemMeta() instanceof MapMeta && ((MapMeta) getItemMeta()).isScaling();
-    }
+  public boolean isScalable() {
+    createItemMeta();
+    return getItemMeta() instanceof MapMeta && ((MapMeta) getItemMeta()).isScaling();
+  }
 
-    public HiltMap setScalable(boolean b) {
-        createItemMeta();
-        if (getItemMeta() instanceof MapMeta) {
-            ((MapMeta) getItemMeta()).setScaling(b);
-        }
-        return this;
+  public HiltMap setScalable(boolean b) {
+    createItemMeta();
+    if (getItemMeta() instanceof MapMeta) {
+      ((MapMeta) getItemMeta()).setScaling(b);
     }
+    return this;
+  }
 
 }

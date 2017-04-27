@@ -21,56 +21,55 @@ package com.sk89q.squirrelid.cache;
 
 import com.google.common.collect.ImmutableMap;
 import com.sk89q.squirrelid.Profile;
-
-import javax.annotation.Nullable;
 import java.util.UUID;
+import javax.annotation.Nullable;
 
 /**
  * Stores a "last known" mapping of UUIDs to names.
  */
 public interface ProfileCache {
 
-    /**
-     * Store the given name as the last known name for the given UUID.
-     *
-     * <p>If the operation fails, an error will be logged but no exception
-     * will be thrown.</p>
-     *
-     * @param profile a profile
-     */
-    void put(Profile profile);
+  /**
+   * Store the given name as the last known name for the given UUID.
+   *
+   * <p>If the operation fails, an error will be logged but no exception
+   * will be thrown.</p>
+   *
+   * @param profile a profile
+   */
+  void put(Profile profile);
 
-    /**
-     * Store a list of zero or more names.
-     *
-     * <p>If the operation fails, an error will be logged but no exception
-     * will be thrown.</p>
-     *
-     * @param profiles an iterable of profiles
-     */
-    void putAll(Iterable<Profile> profiles);
+  /**
+   * Store a list of zero or more names.
+   *
+   * <p>If the operation fails, an error will be logged but no exception
+   * will be thrown.</p>
+   *
+   * @param profiles an iterable of profiles
+   */
+  void putAll(Iterable<Profile> profiles);
 
-    /**
-     * Query the cache for the name for a given UUID.
-     *
-     * <p>If the operation fails, an error will be logged but no exception
-     * will be thrown.</p>
-     *
-     * @param uuid the UUID
-     * @return the name or {@code null} if it is not known
-     */
-    @Nullable
-    Profile getIfPresent(UUID uuid);
+  /**
+   * Query the cache for the name for a given UUID.
+   *
+   * <p>If the operation fails, an error will be logged but no exception
+   * will be thrown.</p>
+   *
+   * @param uuid the UUID
+   * @return the name or {@code null} if it is not known
+   */
+  @Nullable
+  Profile getIfPresent(UUID uuid);
 
-    /**
-     * Query the cache for the names of the given UUIDs.
-     *
-     * <p>If the operation fails, an error will be logged but no exception
-     * will be thrown.</p>
-     *
-     * @param ids a list of UUIDs to query
-     * @return a map of results, which may not have a key for every given UUID
-     */
-    ImmutableMap<UUID, Profile> getAllPresent(Iterable<UUID> ids);
+  /**
+   * Query the cache for the names of the given UUIDs.
+   *
+   * <p>If the operation fails, an error will be logged but no exception
+   * will be thrown.</p>
+   *
+   * @param ids a list of UUIDs to query
+   * @return a map of results, which may not have a key for every given UUID
+   */
+  ImmutableMap<UUID, Profile> getAllPresent(Iterable<UUID> ids);
 
 }

@@ -22,59 +22,58 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.BookMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HiltBook extends HiltItemStack {
 
-    public HiltBook(TomeType tomeType) {
-        super(tomeType.material);
+  public HiltBook(TomeType tomeType) {
+    super(tomeType.material);
+  }
+
+  public String getTitle() {
+    createItemMeta();
+    if (getItemMeta() instanceof BookMeta && ((BookMeta) getItemMeta()).hasTitle()) {
+      return ((BookMeta) getItemMeta()).getTitle();
     }
+    return "";
+  }
 
-    public String getTitle() {
-        createItemMeta();
-        if (getItemMeta() instanceof BookMeta && ((BookMeta) getItemMeta()).hasTitle()) {
-            return ((BookMeta) getItemMeta()).getTitle();
-        }
-        return "";
+  public HiltBook setTitle(String title) {
+    createItemMeta();
+    if (getItemMeta() instanceof BookMeta) {
+      ((BookMeta) getItemMeta()).setTitle(title);
     }
+    return this;
+  }
 
-    public HiltBook setTitle(String title) {
-        createItemMeta();
-        if (getItemMeta() instanceof BookMeta) {
-            ((BookMeta) getItemMeta()).setTitle(title);
-        }
-        return this;
+  public List<String> getPages() {
+    createItemMeta();
+    if (getItemMeta() instanceof BookMeta && ((BookMeta) getItemMeta()).hasPages()) {
+      return new ArrayList<>(((BookMeta) getItemMeta()).getPages());
     }
+    return new ArrayList<>();
+  }
 
-    public List<String> getPages() {
-        createItemMeta();
-        if (getItemMeta() instanceof BookMeta && ((BookMeta) getItemMeta()).hasPages()) {
-            return new ArrayList<>(((BookMeta) getItemMeta()).getPages());
-        }
-        return new ArrayList<>();
+  public HiltBook setPages(List<String> pages) {
+    createItemMeta();
+    if (getItemMeta() instanceof BookMeta) {
+      ((BookMeta) getItemMeta()).setPages(pages);
     }
+    return this;
+  }
 
-    public HiltBook setPages(List<String> pages) {
-        createItemMeta();
-        if (getItemMeta() instanceof BookMeta) {
-            ((BookMeta) getItemMeta()).setPages(pages);
-        }
-        return this;
+  public enum TomeType {
+    BOOK_AND_QUILL(Material.BOOK_AND_QUILL),
+    WRITTEN_BOOK(Material.WRITTEN_BOOK);
+
+    private final Material material;
+
+    private TomeType(Material mat) {
+      this.material = mat;
     }
-
-    public enum TomeType {
-        BOOK_AND_QUILL(Material.BOOK_AND_QUILL),
-        WRITTEN_BOOK(Material.WRITTEN_BOOK);
-
-        private final Material material;
-
-        private TomeType(Material mat) {
-            this.material = mat;
-        }
-    }
+  }
 
 }

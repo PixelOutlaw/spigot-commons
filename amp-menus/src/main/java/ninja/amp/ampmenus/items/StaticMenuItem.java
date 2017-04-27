@@ -30,13 +30,13 @@ import org.bukkit.inventory.ItemStack;
  */
 public class StaticMenuItem extends MenuItem {
 
-    public StaticMenuItem(String displayName, ItemStack icon, String... lore) {
-        super(displayName, icon, lore);
-        setNameAndLore(getIcon(), getDisplayName(), getLore());
-    }
+  public StaticMenuItem(String displayName, ItemStack icon, String... lore) {
+    super(displayName, icon, lore);
+    setNameAndLore(getIcon(), getDisplayName(), getLore());
+  }
 
-    @Override
-    public ItemStack getFinalIcon(Player player) {
-        return getIcon();
-    }
+  @Override
+  public ItemStack getFinalIcon(Player player) {
+    return getIcon();
+  }
 }
