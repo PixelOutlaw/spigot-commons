@@ -44,7 +44,7 @@
       <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
     </repository>
     <snapshotRepository>
-      <id>pixeloutlaw-snapshot</id>
+      <id>pixeloutlaw-snapshots</id>
       <name>PixelOutlaw Snapshot Repository</name>
       <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
     </snapshotRepository>
