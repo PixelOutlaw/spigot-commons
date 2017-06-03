@@ -82,6 +82,7 @@
             <configuration>
               <artifactSet>
                 <includes>
+                  <include>org.slf4j:slf4j-api</include>
                   <include>com.github.zafarkhaja:java-semver</include>
                   <include>com.google.code.findbugs:jsr305</include>
                   <include>io.pixeloutlaw:*</include>

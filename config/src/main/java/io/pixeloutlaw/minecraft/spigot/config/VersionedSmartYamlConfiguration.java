@@ -30,11 +30,15 @@ import java.io.InputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An extension of SmartYamlConfiguration that can backup and update itself.
  */
 public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration implements VersionedConfiguration {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(VersionedSmartYamlConfiguration.class);
 
   private static final String YAML_ENDING = ".yml";
   private static final String BACKUP_ENDING = ".backup";
@@ -139,6 +143,7 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
    */
   @Override
   public boolean needsToUpdate() {
+    LOGGER.debug(getFileName() + " version=\"{}\" localVersion=\"{}\"", getVersion(), getLocalVersion());
     if (StringUtils.isBlank(getVersion())) {
       return false;
     }
@@ -158,23 +163,34 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
   @Override
   public boolean update() {
     if (!needsToUpdate()) {
+      LOGGER.debug("update() - {} - needsToUpdate is false", getFileName());
       return false;
     }
+    LOGGER.debug("update() - {} - needsToUpdate is true", getFileName());
     File directory = getFile().getParentFile();
     File backupLocation = new File(directory, getFile().getName().replace(YAML_ENDING, YAML_ENDING + BACKUP_ENDING));
     switch (updateType) {
       case BACKUP_NO_UPDATE:
-        try {
-          Files.copy(getFile(), backupLocation);
-        } catch (IOException e) {
-          return false;
+        if (getFile().exists()) {
+          try {
+            Files.copy(getFile(), backupLocation);
+            LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - backup performed", getFileName());
+          } catch (IOException e) {
+            LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - failure", getFileName());
+            return false;
+          }
         }
+        LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - backup successful", getFileName());
         return true;
       case BACKUP_AND_UPDATE:
-        try {
-          Files.copy(getFile(), backupLocation);
-        } catch (IOException e) {
-          return false;
+        if (getFile().exists()) {
+          try {
+            Files.copy(getFile(), backupLocation);
+            LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - backup performed", getFileName());
+          } catch (IOException e) {
+            LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - backup failure", getFileName());
+            return false;
+          }
         }
         for (String key : checkAgainst.getKeys(true)) {
           if (checkAgainst.isConfigurationSection(key)) {
@@ -186,12 +202,17 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
         }
         set("version", getVersion());
         save();
+        LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - update successful", getFileName());
         return true;
       case BACKUP_AND_NEW:
-        try {
-          Files.copy(getFile(), backupLocation);
-        } catch (IOException e) {
-          return false;
+        if (getFile().exists()) {
+          try {
+            Files.copy(getFile(), backupLocation);
+            LOGGER.debug("update() - {} - BACKUP_AND_NEW - backup performed", getFileName());
+          } catch (IOException e) {
+            LOGGER.debug("update() - {} - BACKUP_AND_NEW - backup failure", getFileName());
+            return false;
+          }
         }
         for (String key : getKeys(true)) {
           set(key, null);
@@ -204,6 +225,7 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
         }
         set("version", getVersion());
         save();
+        LOGGER.debug("update() - {} - BACKUP_AND_NEW - update successful", getFileName());
         return true;
       case NOTHING:
         return true;
