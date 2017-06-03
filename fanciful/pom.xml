@@ -5,11 +5,11 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.11.2.6-SNAPSHOT</version>
+    <version>1.11.2.5</version>
   </parent>
 
   <artifactId>fanciful</artifactId>
-  <version>1.11.2.6-SNAPSHOT</version>
+  <version>1.11.2.5</version>
 
   <dependencies>
     <dependency>
@@ -23,7 +23,7 @@
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>hilt</artifactId>
-      <version>1.11.2.6-SNAPSHOT</version>
+      <version>1.11.2.5</version>
     </dependency>
   </dependencies>
 
