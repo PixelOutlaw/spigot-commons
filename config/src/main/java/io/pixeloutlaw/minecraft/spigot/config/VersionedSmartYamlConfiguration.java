@@ -27,6 +27,7 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -138,6 +139,12 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
    */
   @Override
   public boolean needsToUpdate() {
+    if (StringUtils.isBlank(getVersion())) {
+      return false;
+    }
+    if (StringUtils.isBlank(getLocalVersion())) {
+      return true;
+    }
     Version version = Version.valueOf(getVersion());
     Version localVersion = Version.valueOf(getLocalVersion());
     return localVersion.greaterThan(version);
