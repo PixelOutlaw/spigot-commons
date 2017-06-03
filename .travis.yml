@@ -2,6 +2,6 @@ language: java
 jdk:
 - oraclejdk8
 before_script:
-- wget https://gist.githubusercontent.com/Nunnery/c2fb7e52f83a37cefba9741a9022288d/raw/fe7ce79566c9b8db2336c8d732421f070167cd05/settings.xml
+- wget https://gist.githubusercontent.com/Nunnery/59429ff7817e4a5a5b41cbd7f8b5b0c7/raw/c676983f1a5d6f4aae2fc38ce494f4f85f133c1c/settings.xml
 script:
-- mvn clean deploy --settings settings.xml
+- mvn clean deploy --settings settings.xml -P pixeloutlaw-distribution
