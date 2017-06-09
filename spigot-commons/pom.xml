@@ -5,47 +5,47 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.12.0.1-SNAPSHOT</version>
+    <version>1.12.0.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>spigot-commons</artifactId>
-  <version>1.12.0.1-SNAPSHOT</version>
+  <version>1.12.0.2-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>amp-menus</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>config</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>fanciful</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>hilt</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>method-command</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>mirror</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.pixeloutlaw</groupId>
       <artifactId>squirrel-id</artifactId>
-      <version>1.12.0.1-SNAPSHOT</version>
+      <version>1.12.0.2-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
