@@ -24,9 +24,11 @@ package io.pixeloutlaw.minecraft.spigot.config;
 
 import com.github.zafarkhaja.semver.Version;
 import com.google.common.io.Files;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -102,7 +104,11 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
       VersionUpdateType updateType) {
     super(file, separator);
     if (checkAgainst != null) {
-      this.checkAgainst = YamlConfiguration.loadConfiguration(checkAgainst);
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(checkAgainst))) {
+        this.checkAgainst = YamlConfiguration.loadConfiguration(reader);
+      } catch (IOException e) {
+        LOGGER.error("Unable to read InputStream for a file", e);
+      }
     }
     this.updateType = updateType;
   }
