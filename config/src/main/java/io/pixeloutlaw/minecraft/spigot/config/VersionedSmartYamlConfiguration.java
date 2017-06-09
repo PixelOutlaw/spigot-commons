@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,10 +105,13 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
       VersionUpdateType updateType) {
     super(file, separator);
     if (checkAgainst != null) {
+      this.checkAgainst = new YamlConfiguration();
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(checkAgainst))) {
-        this.checkAgainst = YamlConfiguration.loadConfiguration(reader);
+        ((YamlConfiguration) this.checkAgainst).load(reader);
       } catch (IOException e) {
         LOGGER.error("Unable to read InputStream for a file", e);
+      } catch (InvalidConfigurationException e) {
+        LOGGER.error("Invalid configuration attempted to be loaded from InputStream", e);
       }
     }
     this.updateType = updateType;
