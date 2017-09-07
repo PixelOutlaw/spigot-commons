@@ -33,9 +33,15 @@ public class ItemClickEvent {
   private boolean goBack = false;
   private boolean close = false;
   private boolean update = false;
+  private boolean shiftClick = false;
 
   public ItemClickEvent(Player player) {
     this.player = player;
+  }
+
+  public ItemClickEvent(Player player, boolean shiftClick) {
+    this.player = player;
+    this.shiftClick = shiftClick;
   }
 
   /**
@@ -112,4 +118,9 @@ public class ItemClickEvent {
       close = false;
     }
   }
+
+  public boolean isShiftClick() {
+    return shiftClick;
+  }
+
 }
