@@ -48,12 +48,10 @@ public class SubMenuItem extends MenuItem {
   public void onItemClick(ItemClickEvent event) {
     event.setWillClose(true);
     final String playerName = event.getPlayer().getName();
-    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-      public void run() {
-        Player p = Bukkit.getPlayerExact(playerName);
-        if (p != null) {
-          menu.open(p);
-        }
+    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+      Player p = Bukkit.getPlayerExact(playerName);
+      if (p != null) {
+        menu.open(p);
       }
     }, 3);
   }

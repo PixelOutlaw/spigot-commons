@@ -215,7 +215,7 @@ public class ItemMenu {
       int slot = event.getRawSlot();
       if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
         Player player = (Player) event.getWhoClicked();
-        ItemClickEvent itemClickEvent = new ItemClickEvent(player);
+        ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.isShiftClick());
         items[slot].onItemClick(itemClickEvent);
         if (itemClickEvent.willUpdate()) {
           update(player);
@@ -223,23 +223,19 @@ public class ItemMenu {
           player.updateInventory();
           if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
             final String playerName = player.getName();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-              public void run() {
-                Player p = Bukkit.getPlayerExact(playerName);
-                if (p != null) {
-                  p.closeInventory();
-                }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+              Player p = Bukkit.getPlayerExact(playerName);
+              if (p != null) {
+                p.closeInventory();
               }
             }, 1);
           }
           if (itemClickEvent.willGoBack() && hasParent()) {
             final String playerName = player.getName();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-              public void run() {
-                Player p = Bukkit.getPlayerExact(playerName);
-                if (p != null) {
-                  parent.open(p);
-                }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+              Player p = Bukkit.getPlayerExact(playerName);
+              if (p != null) {
+                parent.open(p);
               }
             }, 3);
           }
@@ -272,7 +268,7 @@ public class ItemMenu {
 
     private final int size;
 
-    private Size(int size) {
+    Size(int size) {
       this.size = size;
     }
 
