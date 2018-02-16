@@ -5,11 +5,11 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.12.2.1</version>
+    <version>1.12.2.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>squirrel-id</artifactId>
-  <version>1.12.2.1</version>
+  <version>1.12.2.2-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
