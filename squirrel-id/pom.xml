@@ -5,16 +5,16 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.12.2.2-SNAPSHOT</version>
+    <version>1.12.2.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>squirrel-id</artifactId>
-  <version>1.12.2.2-SNAPSHOT</version>
+  <version>1.12.2.3-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
+      <groupId>com.destroystokyo.paper</groupId>
+      <artifactId>paper-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
