@@ -1,0 +1,19 @@
+package io.pixeloutlaw.minecraft.spigot.hilt
+
+import org.bukkit.Material
+
+enum class SkullType(val material: Material) {
+    CREEPER_HEAD(Material.CREEPER_HEAD),
+    CREEPER_WALL_HEAD(Material.CREEPER_WALL_HEAD),
+    DRAGON_HEAD(Material.DRAGON_HEAD),
+    DRAGON_WALL_HEAD(Material.DRAGON_WALL_HEAD),
+    PISTON_HEAD(Material.PISTON_HEAD),
+    PLAYER_HEAD(Material.PLAYER_HEAD),
+    PLAYER_WALL_HEAD(Material.PLAYER_WALL_HEAD),
+    SKELETON_SKULL(Material.SKELETON_SKULL),
+    SKELETON_WALL_SKULL(Material.SKELETON_WALL_SKULL),
+    WITHER_SKELETON_SKULL(Material.WITHER_SKELETON_SKULL),
+    WITHER_SKELETON_WALL_SKULL(Material.WITHER_SKELETON_WALL_SKULL),
+    ZOMBIE_HEAD(Material.ZOMBIE_HEAD),
+    ZOMBIE_WALL_HEAD(Material.ZOMBIE_WALL_HEAD)
+}

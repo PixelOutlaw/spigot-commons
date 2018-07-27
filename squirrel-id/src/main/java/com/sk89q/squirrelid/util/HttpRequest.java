@@ -48,8 +48,8 @@ import javax.xml.bind.Unmarshaller;
 import org.json.simple.JSONValue;
 
 /**
- * A simple fluent interface for performing HTTP requests that uses
- * {@link HttpURLConnection} or {@link javax.net.ssl.HttpsURLConnection}.
+ * A simple fluent interface for performing HTTP requests that uses {@link HttpURLConnection} or {@link
+ * javax.net.ssl.HttpsURLConnection}.
  */
 public class HttpRequest implements Closeable {
 
@@ -108,8 +108,7 @@ public class HttpRequest implements Closeable {
   }
 
   /**
-   * Create a new {@link URL} and throw a {@link RuntimeException} if the URL
-   * is not valid.
+   * Create a new {@link URL} and throw a {@link RuntimeException} if the URL is not valid.
    *
    * @param url the url
    * @return a URL object
@@ -137,9 +136,7 @@ public class HttpRequest implements Closeable {
           url.getPath(), url.getQuery(), url.getRef());
       url = uri.toURL();
       return url;
-    } catch (MalformedURLException e) {
-      return existing;
-    } catch (URISyntaxException e) {
+    } catch (MalformedURLException | URISyntaxException e) {
       return existing;
     }
   }
@@ -196,7 +193,7 @@ public class HttpRequest implements Closeable {
 
   /**
    * Execute the request.
-   * <p/>
+   *
    * After execution, {@link #close()} should be called.
    *
    * @return this object
@@ -460,8 +457,7 @@ public class HttpRequest implements Closeable {
     }
 
     /**
-     * Return the result as an instance of the given class that has been
-     * deserialized from a JSON payload.
+     * Return the result as an instance of the given class that has been deserialized from a JSON payload.
      *
      * @return the object
      * @throws IOException on I/O error
@@ -471,9 +467,9 @@ public class HttpRequest implements Closeable {
     }
 
     /**
-     * Return the result as an instance of the given class that has been
-     * deserialized from a XML payload.
+     * Return the result as an instance of the given class that has been deserialized from a XML payload.
      *
+     * @param cls class
      * @return the object
      * @throws IOException on I/O error
      */

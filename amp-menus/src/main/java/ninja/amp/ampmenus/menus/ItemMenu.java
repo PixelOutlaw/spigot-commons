@@ -46,7 +46,7 @@ public class ItemMenu {
    */
   @SuppressWarnings("deprecation")
   private static final MenuItem EMPTY_SLOT_ITEM = new StaticMenuItem(" ",
-      new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getWoolData()));
+      new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1));
   private JavaPlugin plugin;
   private String name;
   private Size size;

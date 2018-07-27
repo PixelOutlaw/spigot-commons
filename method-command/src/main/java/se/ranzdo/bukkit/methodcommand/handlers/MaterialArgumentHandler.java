@@ -41,17 +41,7 @@ public class MaterialArgumentHandler extends ArgumentHandler<Material> {
 
   @Override
   public Material transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
-    Material m = null;
-    try {
-      m = Material.getMaterial(Integer.parseInt(value));
-    } catch (NumberFormatException e) {
-    }
-
-    if (m != null) {
-      return m;
-    }
-
-    m = Material.getMaterial(value);
+    Material m = Material.getMaterial(value);
 
     if (m != null) {
       return m;

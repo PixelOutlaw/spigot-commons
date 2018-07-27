@@ -1,63 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.pixeloutlaw</groupId>
-    <artifactId>spigot-plugin-parent</artifactId>
-    <version>1.12.2.0</version>
-  </parent>
+    <parent>
+        <groupId>io.pixeloutlaw</groupId>
+        <artifactId>spigot-plugin-parent</artifactId>
+        <version>1.13.0.1</version>
+    </parent>
 
-  <artifactId>spigot-commons-parent</artifactId>
-  <version>1.12.2.1</version>
-  <packaging>pom</packaging>
+    <artifactId>spigot-commons-parent</artifactId>
+    <version>1.13.0.0</version>
+    <packaging>pom</packaging>
 
-  <repositories>
-    <repository>
-      <id>pixeloutlaw-repo</id>
-      <name>PixelOutlaw Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>pixeloutlaw-repo</id>
+            <name>PixelOutlaw Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
+        </repository>
+    </repositories>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.6</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.6</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-  <distributionManagement>
-    <repository>
-      <id>pixeloutlaw-releases</id>
-      <name>PixelOutlaw Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>pixeloutlaw-snapshots</id>
-      <name>PixelOutlaw Snapshot Repository</name>
-      <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>pixeloutlaw-releases</id>
+            <name>PixelOutlaw Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>pixeloutlaw-snapshots</id>
+            <name>PixelOutlaw Snapshot Repository</name>
+            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
-  <modules>
-    <module>amp-menus</module>
-    <module>config</module>
-    <module>fanciful</module>
-    <module>hilt</module>
-    <module>method-command</module>
-    <module>mirror</module>
-    <module>spigot-commons</module>
-    <module>squirrel-id</module>
-  </modules>
+    <modules>
+        <module>amp-menus</module>
+        <module>config</module>
+        <module>fanciful</module>
+        <module>hilt</module>
+        <module>method-command</module>
+        <module>mirror</module>
+        <module>spigot-commons</module>
+        <module>squirrel-id</module>
+    </modules>
 
 </project>

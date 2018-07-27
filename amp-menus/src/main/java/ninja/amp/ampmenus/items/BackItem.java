@@ -34,7 +34,7 @@ import org.bukkit.inventory.ItemStack;
 public class BackItem extends StaticMenuItem {
 
   public BackItem() {
-    super(ChatColor.RED + "Back", new ItemStack(Material.FENCE_GATE));
+    super(ChatColor.RED + "Back", new ItemStack(Material.OAK_FENCE_GATE));
   }
 
   @Override

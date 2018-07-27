@@ -33,7 +33,7 @@ import org.bukkit.inventory.ItemStack;
 public class CloseItem extends StaticMenuItem {
 
   public CloseItem() {
-    super(ChatColor.RED + "Close", new ItemStack(Material.RECORD_4));
+    super(ChatColor.RED + "Close", new ItemStack(Material.MUSIC_DISC_CHIRP));
   }
 
   @Override
