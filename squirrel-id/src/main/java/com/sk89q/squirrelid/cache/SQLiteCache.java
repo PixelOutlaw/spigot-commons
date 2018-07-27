@@ -53,6 +53,7 @@ public class SQLiteCache extends AbstractProfileCache {
    * Create a new instance.
    *
    * @param file the path to a SQLite file to use
+   * @throws IOException if unablbe to make connection
    */
   public SQLiteCache(File file) throws IOException {
     checkNotNull(file);
