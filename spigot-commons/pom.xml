@@ -78,6 +78,8 @@
                                     <include>org.apache.commons:commons-lang3</include>
                                     <include>org.slf4j:*</include>
                                     <include>ch.qos.logback:*</include>
+                                    <include>org.jetbrains.kotlin:kotlin-stdlib*</include>
+                                    <include>org.jetbrains:annotations</include>
                                 </includes>
                             </artifactSet>
                             <relocations>
