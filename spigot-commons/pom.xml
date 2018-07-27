@@ -76,6 +76,7 @@
                                     <include>com.google.code.findbugs:jsr305</include>
                                     <include>io.pixeloutlaw:*</include>
                                     <include>org.apache.commons:commons-lang3</include>
+                                    <include>org.apache.commons:commons-text</include>
                                     <include>org.slf4j:*</include>
                                     <include>ch.qos.logback:*</include>
                                     <include>org.jetbrains.kotlin:kotlin-stdlib*</include>
