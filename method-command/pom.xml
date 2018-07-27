@@ -5,11 +5,11 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.0.1-SNAPSHOT</version>
+    <version>1.13.0.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>method-command</artifactId>
-  <version>1.13.0.1-SNAPSHOT</version>
+  <version>1.13.0.2-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
