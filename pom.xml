@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.0.2-SNAPSHOT</version>
+    <version>1.13.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <repositories>
