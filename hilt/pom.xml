@@ -5,20 +5,16 @@
   <parent>
     <groupId>io.pixeloutlaw</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.0.1</version>
+    <version>1.13.0.2</version>
   </parent>
 
   <artifactId>hilt</artifactId>
-  <version>1.13.0.1</version>
+  <version>1.13.0.2</version>
 
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
