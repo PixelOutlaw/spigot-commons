@@ -69,6 +69,8 @@ open class HiltItemStack : ItemStack {
             return itemMeta.itemFlags
         }
 
+    private val zero: Short = 0
+
     /**
      * Constructs a new HiltItemStack from a given Material.
      *
@@ -88,20 +90,6 @@ open class HiltItemStack : ItemStack {
      * @param amount amount of items in HiltItemStack
      */
     constructor(type: Material, amount: Int) : super(type, amount) {
-        defaultName = WordUtils.capitalizeFully(
-                Joiner.on(" ").skipNulls().join(type.name.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
-        )
-        createItemMeta()
-    }
-
-    /**
-     * Constructs a new HiltItemStack from a given Material, amount, and durability.
-     *
-     * @param type Material of new HiltItemStack
-     * @param amount amount of items in HiltItemStack
-     * @param damage damage done to item (0 is no damage)
-     */
-    constructor(type: Material, amount: Int, damage: Short) : super(type, amount, damage) {
         defaultName = WordUtils.capitalizeFully(
                 Joiner.on(" ").skipNulls().join(type.name.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
         )
@@ -175,8 +163,7 @@ open class HiltItemStack : ItemStack {
 
     override fun clone(): HiltItemStack {
         val itemStack = super.clone()
-        val hiltItemStack = HiltItemStack(
-                itemStack.type, itemStack.amount, itemStack.durability)
+        val hiltItemStack = HiltItemStack(itemStack.type, itemStack.amount)
         hiltItemStack.itemMeta = itemStack.itemMeta.clone()
         return hiltItemStack
     }
