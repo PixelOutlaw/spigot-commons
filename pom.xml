@@ -5,11 +5,11 @@
     <parent>
         <groupId>io.pixeloutlaw</groupId>
         <artifactId>spigot-plugin-parent</artifactId>
-        <version>1.13.1.0</version>
+        <version>1.13.2.0</version>
     </parent>
 
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.1.0</version>
+    <version>1.13.2.0</version>
     <packaging>pom</packaging>
 
     <repositories>
@@ -29,19 +29,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <distributionManagement>
-        <repository>
-            <id>pixeloutlaw-releases</id>
-            <name>PixelOutlaw Repository</name>
-            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>pixeloutlaw-snapshots</id>
-            <name>PixelOutlaw Snapshot Repository</name>
-            <url>https://artifactory.pixeloutlaw.io/artifactory/maven-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <modules>
         <module>amp-menus</module>
