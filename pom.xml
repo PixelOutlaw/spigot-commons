@@ -12,14 +12,6 @@
     <version>1.13.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <repositories>
-        <repository>
-            <id>pixeloutlaw-repo</id>
-            <name>PixelOutlaw Repository</name>
-            <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
-        </repository>
-    </repositories>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
