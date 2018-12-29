@@ -33,12 +33,9 @@
     <modules>
         <module>amp-menus</module>
         <module>config</module>
-        <module>fanciful</module>
         <module>hilt</module>
         <module>method-command</module>
-        <module>mirror</module>
         <module>spigot-commons</module>
-        <module>squirrel-id</module>
     </modules>
 
 </project>
