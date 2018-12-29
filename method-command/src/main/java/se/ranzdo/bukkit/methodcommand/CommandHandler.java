@@ -35,10 +35,12 @@ import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import se.ranzdo.bukkit.methodcommand.handlers.DoubleArgumentHandler;
+import se.ranzdo.bukkit.methodcommand.handlers.EnchantmentArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.EntityTypeArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.IntegerArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.MaterialArgumentHandler;
@@ -182,6 +184,7 @@ public class CommandHandler implements CommandExecutor {
     registerArgumentHandler(World.class, new WorldArgumentHandler());
     registerArgumentHandler(EntityType.class, new EntityTypeArgumentHandler());
     registerArgumentHandler(Material.class, new MaterialArgumentHandler());
+    registerArgumentHandler(Enchantment.class, new EnchantmentArgumentHandler());
   }
 
   @SuppressWarnings("unchecked")
