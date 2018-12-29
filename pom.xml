@@ -8,17 +8,10 @@
         <version>1.13.2.0</version>
     </parent>
 
+    <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.2.0</version>
+    <version>1.13.2.1</version>
     <packaging>pom</packaging>
-
-    <repositories>
-        <repository>
-            <id>pixeloutlaw-repo</id>
-            <name>PixelOutlaw Repository</name>
-            <url>https://artifactory.pixeloutlaw.io/artifactory/public</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -31,14 +24,11 @@
     </dependencyManagement>
 
     <modules>
+        <module>spigot-commons-bom</module>
         <module>amp-menus</module>
         <module>config</module>
-        <module>fanciful</module>
         <module>hilt</module>
         <module>method-command</module>
-        <module>mirror</module>
-        <module>spigot-commons</module>
-        <module>squirrel-id</module>
     </modules>
 
 </project>
