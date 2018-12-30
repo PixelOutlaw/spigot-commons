@@ -25,6 +25,11 @@
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
+        <artifactId>fanciful</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>hilt</artifactId>
         <version>${project.version}</version>
       </dependency>
