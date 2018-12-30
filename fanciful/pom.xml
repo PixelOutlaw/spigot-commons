@@ -8,7 +8,7 @@
     <version>1.13.2.3</version>
   </parent>
 
-  <artifactId>hilt</artifactId>
+  <artifactId>fanciful</artifactId>
 
   <dependencies>
     <dependency>
@@ -17,12 +17,12 @@
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
-      <artifactId>commons-text</artifactId>
-      <version>1.4</version>
+      <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <groupId>io.pixeloutlaw.spigot-commons</groupId>
+      <artifactId>hilt</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
