@@ -23,26 +23,17 @@
 package io.pixeloutlaw.minecraft.spigot.hilt
 
 import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.MapMeta
 
-class HiltMap(scalable: Boolean) : HiltItemStack(Material.FILLED_MAP) {
-
-    val isScalable: Boolean
-        get() {
-            createItemMeta()
-            return itemMeta is MapMeta && (itemMeta as MapMeta).isScaling
+class HiltMap(scalable: Boolean) : ItemStack(Material.FILLED_MAP) {
+    var scalable: Boolean
+        get() = getFromItemMetaAs<MapMeta, Boolean> { isScaling } ?: false
+        set(value) {
+            getThenSetItemMetaAs<MapMeta> { isScaling = value }
         }
 
     init {
-        setScalable(scalable)
+        this.scalable = scalable
     }
-
-    fun setScalable(b: Boolean): HiltMap {
-        createItemMeta()
-        if (itemMeta is MapMeta) {
-            (itemMeta as MapMeta).isScaling = b
-        }
-        return this
-    }
-
 }

@@ -23,28 +23,23 @@
 package io.pixeloutlaw.minecraft.spigot.hilt
 
 import org.bukkit.OfflinePlayer
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 
-class HiltSkull(skullType: SkullType, owner: OfflinePlayer) : HiltItemStack(skullType.material) {
-
-    val owner: OfflinePlayer?
-        get() {
-            createItemMeta()
-            return if (itemMeta is SkullMeta && (itemMeta as SkullMeta).hasOwner()) {
-                (itemMeta as SkullMeta).owningPlayer
-            } else null
+class HiltSkull(skullType: SkullType, owner: OfflinePlayer) : ItemStack(skullType.material) {
+    var owner: OfflinePlayer?
+        get() = getFromItemMetaAs<SkullMeta, OfflinePlayer?> {
+            if (hasOwner()) {
+                owningPlayer
+            } else {
+                null
+            }
+        }
+        set(value) {
+            getThenSetItemMetaAs<SkullMeta> { owningPlayer = value }
         }
 
     init {
-        setOwner(owner)
+        this.owner = owner
     }
-
-    fun setOwner(owner: OfflinePlayer): HiltSkull {
-        createItemMeta()
-        if (itemMeta is SkullMeta) {
-            (itemMeta as SkullMeta).owningPlayer = owner
-        }
-        return this
-    }
-
 }
