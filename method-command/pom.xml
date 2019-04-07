@@ -29,7 +29,7 @@
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.2.6-SNAPSHOT</version>
+    <version>1.13.2.6</version>
   </parent>
 
   <artifactId>method-command</artifactId>
