@@ -22,29 +22,19 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt
 
+import org.bukkit.Bukkit
 import org.bukkit.Color
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
-class HiltLeatherArmor(type: LeatherArmorType, color: Color) : HiltItemStack(type.mat) {
-
-    val color: Color?
-        get() {
-            createItemMeta()
-            return if (itemMeta is LeatherArmorMeta) {
-                (itemMeta as LeatherArmorMeta).color
-            } else null
+class HiltLeatherArmor(type: LeatherArmorType, color: Color) : ItemStack(type.mat) {
+    var color: Color
+        get() = getFromItemMetaAs<LeatherArmorMeta, Color> { color } ?: Bukkit.getItemFactory().defaultLeatherColor
+        set(value) {
+            getThenSetItemMetaAs<LeatherArmorMeta> { setColor(value) }
         }
 
     init {
-        setColor(color)
+        this.color = color
     }
-
-    fun setColor(color: Color): HiltLeatherArmor {
-        createItemMeta()
-        if (itemMeta is LeatherArmorMeta) {
-            (itemMeta as LeatherArmorMeta).color = color
-        }
-        return this
-    }
-
 }

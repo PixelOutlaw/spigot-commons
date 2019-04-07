@@ -24,44 +24,26 @@ package io.pixeloutlaw.minecraft.spigot.hilt
 
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.KnowledgeBookMeta
-import java.util.*
 
-class HiltKnowledgeBook(recipes: List<NamespacedKey>) : HiltItemStack(Material.KNOWLEDGE_BOOK) {
-
-    val recipes: List<NamespacedKey>
-        get() {
-            createItemMeta()
-            return if (itemMeta is KnowledgeBookMeta) {
-                (itemMeta as KnowledgeBookMeta).recipes
-            } else ArrayList()
+class HiltKnowledgeBook(recipes: List<NamespacedKey>) : ItemStack(Material.KNOWLEDGE_BOOK) {
+    var recipes: List<NamespacedKey>
+        get() = getFromItemMetaAs<KnowledgeBookMeta, List<NamespacedKey>> { recipes } ?: listOf()
+        set(value) {
+            getThenSetItemMetaAs<KnowledgeBookMeta> { recipes = value }
         }
 
     init {
-        setRecipes(recipes)
+        this.recipes = recipes
     }
 
     fun hasRecipes(): Boolean {
-        createItemMeta()
-        return if (itemMeta is KnowledgeBookMeta) {
-            (itemMeta as KnowledgeBookMeta).hasRecipes()
-        } else false
+        return getFromItemMetaAs<KnowledgeBookMeta, Boolean> { hasRecipes() } ?: false
     }
 
     fun addRecipe(recipe: NamespacedKey): HiltKnowledgeBook {
-        createItemMeta()
-        if (itemMeta is KnowledgeBookMeta) {
-            (itemMeta as KnowledgeBookMeta).addRecipe(recipe)
-        }
+        getThenSetItemMetaAs<KnowledgeBookMeta> { addRecipe(recipe) }
         return this
     }
-
-    fun setRecipes(recipes: List<NamespacedKey>): HiltKnowledgeBook {
-        createItemMeta()
-        if (itemMeta is KnowledgeBookMeta) {
-            (itemMeta as KnowledgeBookMeta).recipes = recipes
-        }
-        return this
-    }
-
 }

@@ -30,7 +30,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
 import com.tealcube.minecraft.bukkit.TextUtils;
-import io.pixeloutlaw.minecraft.spigot.hilt.HiltItemStack;
+import io.pixeloutlaw.minecraft.spigot.hilt.ItemStackExtensionsKt;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.*;
@@ -770,8 +770,7 @@ public class FancyMessage
   }
 
   public FancyMessage item(ItemStack itemStack) {
-    HiltItemStack hiltItemStack = new HiltItemStack(itemStack);
-    return then(TextUtils.keepFirstColors(hiltItemStack.getName()) + "[Item]").itemTooltip(itemStack);
+    return then(TextUtils.keepFirstColors(ItemStackExtensionsKt.getDisplayName(itemStack)) + "[Item]").itemTooltip(itemStack);
   }
 
   @Override

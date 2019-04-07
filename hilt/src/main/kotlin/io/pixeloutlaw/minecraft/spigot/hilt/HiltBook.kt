@@ -22,41 +22,43 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt
 
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
-import java.util.ArrayList
 
-class HiltBook(bookType: BookType) : HiltItemStack(bookType.material) {
-
-    val title: String
-        get() {
-            createItemMeta()
-            return if (itemMeta is BookMeta && (itemMeta as BookMeta).hasTitle()) {
-                (itemMeta as BookMeta).title
-            } else ""
+class HiltBook(bookType: BookType) : ItemStack(bookType.material) {
+    var author: String?
+        get() = getFromItemMetaAs<BookMeta, String?> {
+            if (hasAuthor()) {
+                author
+            } else {
+                ""
+            }
+        }
+        set(value) {
+            getThenSetItemMetaAs<BookMeta> { author = value }
         }
 
-    val pages: List<String>
-        get() {
-            createItemMeta()
-            return if (itemMeta is BookMeta && (itemMeta as BookMeta).hasPages()) {
-                ArrayList((itemMeta as BookMeta).pages)
-            } else ArrayList()
+    var pages: List<String>
+        get() = getFromItemMetaAs<BookMeta, List<String>> {
+            if (hasPages()) {
+                pages.toList()
+            } else {
+                listOf()
+            }
+        } ?: listOf()
+        set(value) {
+            getItemMetaAs<BookMeta>()?.pages = value
         }
 
-    fun setTitle(title: String): HiltBook {
-        createItemMeta()
-        if (itemMeta is BookMeta) {
-            (itemMeta as BookMeta).title = title
+    var title: String?
+        get() = getFromItemMetaAs<BookMeta, String?> {
+            if (hasTitle()) {
+                title
+            } else {
+                ""
+            }
         }
-        return this
-    }
-
-    fun setPages(pages: List<String>): HiltBook {
-        createItemMeta()
-        if (itemMeta is BookMeta) {
-            (itemMeta as BookMeta).pages = pages
+        set(value) {
+            getItemMetaAs<BookMeta>()?.title = value
         }
-        return this
-    }
-
 }

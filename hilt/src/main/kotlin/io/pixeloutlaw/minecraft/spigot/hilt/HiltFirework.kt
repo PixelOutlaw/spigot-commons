@@ -24,46 +24,30 @@ package io.pixeloutlaw.minecraft.spigot.hilt
 
 import org.bukkit.FireworkEffect
 import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.FireworkMeta
-import java.util.ArrayList
 
-class HiltFirework(fireworkEffects: Collection<FireworkEffect>, power: Int) : HiltItemStack(Material.FIREWORK_ROCKET) {
-
-    val power: Int
-        get() {
-            createItemMeta()
-            return if (itemMeta is FireworkMeta) {
-                (itemMeta as FireworkMeta).power
-            } else 0
+class HiltFirework(fireworkEffects: Collection<FireworkEffect>, power: Int) : ItemStack(Material.FIREWORK_ROCKET) {
+    var fireworkEffects: List<FireworkEffect>
+        get() = getFromItemMetaAs<FireworkMeta, List<FireworkEffect>> {
+            if (hasEffects()) {
+                effects
+            } else {
+                listOf()
+            }
+        } ?: listOf()
+        set(value) {
+            getThenSetItemMetaAs<FireworkMeta> { fireworkEffects = value }
         }
 
-    val fireworkEffects: List<FireworkEffect>
-        get() {
-            createItemMeta()
-            return if (itemMeta is FireworkMeta && (itemMeta as FireworkMeta).hasEffects()) {
-                ArrayList((itemMeta as FireworkMeta).effects)
-            } else ArrayList()
+    var power: Int
+        get() = getFromItemMetaAs<FireworkMeta, Int> { power } ?: 0
+        set(value) {
+            getThenSetItemMetaAs<FireworkMeta> { power = value }
         }
 
     init {
-        setFireworkEffects(fireworkEffects)
-        setPower(power)
+        this.fireworkEffects = fireworkEffects.toList()
+        this.power = power
     }
-
-    fun setPower(power: Int): HiltFirework {
-        createItemMeta()
-        if (itemMeta is FireworkMeta) {
-            (itemMeta as FireworkMeta).power = power
-        }
-        return this
-    }
-
-    fun setFireworkEffects(effects: Collection<FireworkEffect>): HiltFirework {
-        createItemMeta()
-        if (itemMeta is FireworkMeta) {
-            (itemMeta as FireworkMeta).addEffects(effects)
-        }
-        return this
-    }
-
 }
