@@ -42,36 +42,28 @@ public abstract class ArgumentHandler<T> {
     setMessage("cant_as_console", "You can't do this as console.");
 
     //Default verifiers
-    addVerifier("include", new ArgumentVerifier<T>() {
-      @Override
-      public void verify(CommandSender sender, CommandArgument argument, String verifyName, String[] verifyArgs,
-          T value, String valueRaw) throws VerifyError {
-        for (String include : verifyArgs) {
-          try {
-            if (transform(sender, argument, include) != value) {
-              throw new VerifyError(argument.getMessage("include_error", valueRaw));
-            }
-          } catch (TransformError e) {
-            throw (IllegalArgumentException) new IllegalArgumentException(
-                "Could not transform the verify argument " + include).initCause(e);
+    addVerifier("include", (sender, argument, verifyName, verifyArgs, value, valueRaw) -> {
+      for (String include : verifyArgs) {
+        try {
+          if (transform(sender, argument, include) != value) {
+            throw new VerifyError(argument.getMessage("include_error", valueRaw));
           }
+        } catch (TransformError e) {
+          throw (IllegalArgumentException) new IllegalArgumentException(
+              "Could not transform the verify argument " + include).initCause(e);
         }
       }
     });
 
-    addVerifier("exclude", new ArgumentVerifier<T>() {
-      @Override
-      public void verify(CommandSender sender, CommandArgument argument, String verifyName, String[] verifyArgs,
-          T value, String valueRaw) throws VerifyError {
-        for (String exclude : verifyArgs) {
-          try {
-            if (transform(sender, argument, exclude) == value) {
-              throw new VerifyError(argument.getMessage("exclude_error", valueRaw));
-            }
-          } catch (TransformError e) {
-            throw (IllegalArgumentException) new IllegalArgumentException(
-                "Could not transform the verify argument " + exclude).initCause(e);
+    addVerifier("exclude", (sender, argument, verifyName, verifyArgs, value, valueRaw) -> {
+      for (String exclude : verifyArgs) {
+        try {
+          if (transform(sender, argument, exclude) == value) {
+            throw new VerifyError(argument.getMessage("exclude_error", valueRaw));
           }
+        } catch (TransformError e) {
+          throw (IllegalArgumentException) new IllegalArgumentException(
+              "Could not transform the verify argument " + exclude).initCause(e);
         }
       }
     });
@@ -121,7 +113,7 @@ public abstract class ArgumentHandler<T> {
     T transformed;
 
     if (arg.startsWith("?")) {
-      String varName = arg.substring(1, arg.length());
+      String varName = arg.substring(1);
       ArgumentVariable<T> var = getVariable(varName);
       if (var == null) {
         throw new IllegalArgumentException("The ArgumentVariable '" + varName + "' is not registered.");
@@ -129,7 +121,7 @@ public abstract class ArgumentHandler<T> {
 
       transformed = var.var(sender, argument, varName);
     } else if (arg.matches("^\\\\+\\?.*$")) {
-      arg = arg.substring(1, arg.length());
+      arg = arg.substring(1);
       transformed = transform(sender, argument, arg);
     } else {
       transformed = transform(sender, argument, arg);
