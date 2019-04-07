@@ -29,13 +29,21 @@
     <parent>
         <groupId>io.pixeloutlaw</groupId>
         <artifactId>spigot-plugin-parent</artifactId>
-        <version>1.13.2.3</version>
+        <version>1.13.2.4</version>
     </parent>
 
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
     <version>1.13.2.7-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>bintray</name>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
