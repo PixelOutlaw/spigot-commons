@@ -25,60 +25,53 @@ package io.pixeloutlaw.minecraft.spigot.hilt
 import org.bukkit.DyeColor
 import org.bukkit.Material
 import org.bukkit.entity.TropicalFish
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.TropicalFishBucketMeta
 
 class HiltTropicalFishBucket(
-        bodyColor: DyeColor,
-        pattern: TropicalFish.Pattern,
-        patternColor: DyeColor
-) : HiltItemStack(Material.TROPICAL_FISH_BUCKET) {
-
-    val bodyColor: DyeColor?
-        get() {
-            createItemMeta()
-            return if (itemMeta is TropicalFishBucketMeta) {
-                (itemMeta as TropicalFishBucketMeta).bodyColor
-            } else null
+    bodyColor: DyeColor,
+    pattern: TropicalFish.Pattern,
+    patternColor: DyeColor
+) : ItemStack(Material.TROPICAL_FISH_BUCKET) {
+    var bodyColor: DyeColor
+        get() = getFromItemMetaAs<TropicalFishBucketMeta, DyeColor> {
+            if (hasVariant()) {
+                bodyColor
+            } else {
+                DyeColor.BLACK
+            }
+        } ?: DyeColor.BLACK
+        set(value) {
+            getThenSetItemMetaAs<TropicalFishBucketMeta> { bodyColor = value }
         }
 
-    val pattern: TropicalFish.Pattern?
-        get() {
-            createItemMeta()
-            return if (itemMeta is TropicalFishBucketMeta) {
-                (itemMeta as TropicalFishBucketMeta).pattern
-            } else null
+    var pattern: TropicalFish.Pattern
+        get() = getFromItemMetaAs<TropicalFishBucketMeta, TropicalFish.Pattern> {
+            if (hasVariant()) {
+                pattern
+            } else {
+                TropicalFish.Pattern.BETTY
+            }
+        } ?: TropicalFish.Pattern.BETTY
+        set(value) {
+            getThenSetItemMetaAs<TropicalFishBucketMeta> { pattern = value }
         }
 
-    val patternColor: DyeColor?
-        get() {
-            createItemMeta()
-            return if (itemMeta is TropicalFishBucketMeta) {
-                (itemMeta as TropicalFishBucketMeta).patternColor
-            } else null
+    var patternColor: DyeColor
+        get() = getFromItemMetaAs<TropicalFishBucketMeta, DyeColor> {
+            if (hasVariant()) {
+                patternColor
+            } else {
+                DyeColor.BLACK
+            }
+        } ?: DyeColor.BLACK
+        set(value) {
+            getThenSetItemMetaAs<TropicalFishBucketMeta> { patternColor = value }
         }
 
-    fun setBodyColor(bodyColor: DyeColor): HiltTropicalFishBucket {
-        createItemMeta()
-        if (itemMeta is TropicalFishBucketMeta) {
-            (itemMeta as TropicalFishBucketMeta).bodyColor = bodyColor
-        }
-        return this
+    init {
+        this.bodyColor = bodyColor
+        this.pattern = pattern
+        this.patternColor = patternColor
     }
-
-    fun setPattern(pattern: TropicalFish.Pattern): HiltTropicalFishBucket {
-        createItemMeta()
-        if (itemMeta is TropicalFishBucketMeta) {
-            (itemMeta as TropicalFishBucketMeta).pattern = pattern
-        }
-        return this
-    }
-
-    fun setPatternColor(patternColor: DyeColor): HiltTropicalFishBucket {
-        createItemMeta()
-        if (itemMeta is TropicalFishBucketMeta) {
-            (itemMeta as TropicalFishBucketMeta).patternColor = patternColor
-        }
-        return this
-    }
-
 }

@@ -20,27 +20,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package io.pixeloutlaw.minecraft.spigot.hilt
+package io.pixeloutlaw.minecraft.spigot.methodcommand.handlers
 
-import org.bukkit.FireworkEffect
-import org.bukkit.Material
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.FireworkEffectMeta
+import org.bukkit.NamespacedKey
+import org.bukkit.command.CommandSender
+import org.bukkit.enchantments.Enchantment
+import se.ranzdo.bukkit.methodcommand.ArgumentHandler
+import se.ranzdo.bukkit.methodcommand.CommandArgument
+import se.ranzdo.bukkit.methodcommand.TransformError
 
-class HiltFireworkEffect(effect: FireworkEffect) : ItemStack(Material.FIREWORK_STAR) {
-    var fireworkEffect: FireworkEffect?
-        get() = getFromItemMetaAs<FireworkEffectMeta, FireworkEffect?> {
-            if (hasEffect()) {
-                effect
-            } else {
-                null
-            }
-        }
-        set(value) {
-            getThenSetItemMetaAs<FireworkEffectMeta> { effect = value }
-        }
-
+class EnchantmentArgumentHandler : ArgumentHandler<Enchantment>() {
     init {
-        fireworkEffect = effect
+        setMessage("parse_error", "There is no Enchantment named %1")
+        setMessage("include_error", "There is no Enchantment named %1")
+        setMessage("exclude_error", "There is no Enchantment named %1")
+    }
+
+    @Throws(TransformError::class)
+    override fun transform(sender: CommandSender, argument: CommandArgument, value: String): Enchantment {
+        val ench = try {
+            Enchantment.getByKey(NamespacedKey.minecraft(value))
+        } catch (ex: Exception) {
+            Enchantment.getByName(value)
+        }
+        return ench ?: throw TransformError(argument.getMessage("parse_error", value))
     }
 }

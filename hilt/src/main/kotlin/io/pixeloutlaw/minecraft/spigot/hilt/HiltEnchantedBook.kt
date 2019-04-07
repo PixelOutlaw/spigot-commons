@@ -24,37 +24,31 @@ package io.pixeloutlaw.minecraft.spigot.hilt
 
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.EnchantmentStorageMeta
 import java.util.HashMap
 
-class HiltEnchantedBook(enchantmentMap: Map<Enchantment, Int>) : HiltItemStack(Material.ENCHANTED_BOOK) {
-
-    val storedEnchantments: Map<Enchantment, Int>
+class HiltEnchantedBook(enchantmentMap: Map<Enchantment, Int>) : ItemStack(Material.ENCHANTED_BOOK) {
+    var storedEnchantments: Map<Enchantment, Int>
         get() {
-            createItemMeta()
             return if (itemMeta is EnchantmentStorageMeta) {
-                HashMap((itemMeta as EnchantmentStorageMeta).storedEnchants)
+                (itemMeta as EnchantmentStorageMeta).storedEnchants.toMap()
             } else HashMap()
+        }
+        set(values) {
+            getThenSetItemMetaAs<EnchantmentStorageMeta> {
+                if (hasStoredEnchants()) {
+                    for (entry in storedEnchants.entries) {
+                        removeStoredEnchant(entry.key)
+                    }
+                }
+                for ((key, value) in values) {
+                    addStoredEnchant(key, value, true)
+                }
+            }
         }
 
     init {
-        setStoredEnchantments(enchantmentMap)
+        storedEnchantments = enchantmentMap
     }
-
-    fun setStoredEnchantments(enchantments: Map<Enchantment, Int>): HiltEnchantedBook {
-        createItemMeta()
-        if (itemMeta is EnchantmentStorageMeta) {
-            val enchantmentStorageMeta = itemMeta as EnchantmentStorageMeta
-            if (enchantmentStorageMeta.hasStoredEnchants()) {
-                for (entry in enchantmentStorageMeta.storedEnchants.entries) {
-                    enchantmentStorageMeta.removeStoredEnchant(entry.key)
-                }
-            }
-            for ((key, value) in enchantments) {
-                enchantmentStorageMeta.addStoredEnchant(key, value, true)
-            }
-        }
-        return this
-    }
-
 }

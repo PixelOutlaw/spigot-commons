@@ -24,6 +24,7 @@
  */
 package se.ranzdo.bukkit.methodcommand;
 
+import io.pixeloutlaw.minecraft.spigot.methodcommand.handlers.EnchantmentArgumentHandler;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +41,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import se.ranzdo.bukkit.methodcommand.handlers.DoubleArgumentHandler;
-import se.ranzdo.bukkit.methodcommand.handlers.EnchantmentArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.EntityTypeArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.IntegerArgumentHandler;
 import se.ranzdo.bukkit.methodcommand.handlers.MaterialArgumentHandler;
@@ -55,16 +55,13 @@ public class CommandHandler implements CommandExecutor {
   private Map<Class<?>, ArgumentHandler<?>> argumentHandlers = new HashMap<Class<?>, ArgumentHandler<?>>();
   private Map<org.bukkit.command.Command, RootCommand> rootCommands = new HashMap<org.bukkit.command.Command, RootCommand>();
 
-  private PermissionHandler permissionHandler = new PermissionHandler() {
-    @Override
-    public boolean hasPermission(CommandSender sender, String[] permissions) {
-      for (String perm : permissions) {
-        if (!sender.hasPermission(perm)) {
-          return false;
-        }
+  private PermissionHandler permissionHandler = (sender, permissions) -> {
+    for (String perm : permissions) {
+      if (!sender.hasPermission(perm)) {
+        return false;
       }
-      return true;
     }
+    return true;
   };
 
   private HelpHandler helpHandler = new HelpHandler() {

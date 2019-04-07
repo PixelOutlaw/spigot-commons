@@ -22,57 +22,42 @@
  */
 package io.pixeloutlaw.minecraft.spigot.hilt
 
+import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffect
-import java.util.ArrayList
 
 class HiltPotion(
-        potionType: PotionType,
-        potionData: PotionData,
-        effects: Collection<PotionEffect>
-) : HiltItemStack(potionType.material) {
-
-    val basePotionData: PotionData?
-        get() {
-            createItemMeta()
-            return if (itemMeta is PotionMeta) {
-                (itemMeta as PotionMeta).basePotionData
-            } else null
+    potionType: PotionType,
+    private val originalPotionData: PotionData,
+    effects: Collection<PotionEffect>
+) : ItemStack(potionType.material) {
+    var basePotionData: PotionData
+        get() = getFromItemMetaAs<PotionMeta, PotionData> { basePotionData } ?: originalPotionData
+        set(value) {
+            getThenSetItemMetaAs<PotionMeta> { basePotionData = value }
         }
-
-    val effects: List<PotionEffect>
-        get() {
-            createItemMeta()
-            return if (itemMeta is PotionMeta && (itemMeta as PotionMeta).hasCustomEffects()) {
-                ArrayList((itemMeta as PotionMeta).customEffects)
-            } else ArrayList()
+    var effects: Collection<PotionEffect>
+        get() = getFromItemMetaAs<PotionMeta, Collection<PotionEffect>> {
+            if (hasCustomEffects()) {
+                customEffects
+            } else {
+                listOf()
+            }
+        } ?: listOf()
+        set(value) {
+            getThenSetItemMetaAs<PotionMeta> {
+                if (hasCustomEffects()) {
+                    clearCustomEffects()
+                }
+                for (potionEffect in value) {
+                    addCustomEffect(potionEffect, false)
+                }
+            }
         }
 
     init {
-        setBasePotionData(potionData)
-        setEffects(effects)
+        basePotionData = originalPotionData
+        this.effects = effects
     }
-
-    fun setBasePotionData(potionData: PotionData): HiltPotion {
-        createItemMeta()
-        if (itemMeta is PotionMeta) {
-            (itemMeta as PotionMeta).basePotionData = potionData
-        }
-        return this
-    }
-
-    fun setEffects(effects: Collection<PotionEffect>): HiltPotion {
-        createItemMeta()
-        if (itemMeta is PotionMeta) {
-            if ((itemMeta as PotionMeta).hasCustomEffects()) {
-                (itemMeta as PotionMeta).clearCustomEffects()
-            }
-            for (potionEffect in effects) {
-                (itemMeta as PotionMeta).addCustomEffect(potionEffect, false)
-            }
-        }
-        return this
-    }
-
 }
