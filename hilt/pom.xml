@@ -29,7 +29,7 @@
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.13.2.7-SNAPSHOT</version>
+    <version>1.14.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>hilt</artifactId>
