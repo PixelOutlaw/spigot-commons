@@ -29,11 +29,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -41,7 +42,7 @@ import org.slf4j.LoggerFactory;
  */
 public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration implements VersionedConfiguration {
 
-  public static final Logger LOGGER = LoggerFactory.getLogger(VersionedSmartYamlConfiguration.class);
+  public static final Logger LOGGER = Logger.getLogger("com.tealcube.minecraft.bukkit.mythicdrops.VersionedSmartYamlConfiguration");
 
   private static final String YAML_ENDING = ".yml";
   private static final String BACKUP_ENDING = ".backup";
@@ -109,9 +110,9 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(checkAgainst))) {
         ((YamlConfiguration) this.checkAgainst).load(reader);
       } catch (IOException e) {
-        LOGGER.error("Unable to read InputStream for a file", e);
+        LOGGER.log(Level.SEVERE, "Unable to read InputStream for a file", e);
       } catch (InvalidConfigurationException e) {
-        LOGGER.error("Invalid configuration attempted to be loaded from InputStream", e);
+        LOGGER.log(Level.SEVERE, "Invalid configuration attempted to be loaded from InputStream", e);
       }
     }
     this.updateType = updateType;
@@ -153,7 +154,7 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
    */
   @Override
   public boolean needsToUpdate() {
-    LOGGER.debug(getFileName() + " version=\"{}\" localVersion=\"{}\"", getVersion(), getLocalVersion());
+    LOGGER.log(Level.FINE, getFileName() + " version=\"" + getVersion() + "\" localVersion=\"" + getLocalVersion() + "\"");
     if (StringUtils.isBlank(getVersion())) {
       return false;
     }
@@ -173,10 +174,10 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
   @Override
   public boolean update() {
     if (!needsToUpdate()) {
-      LOGGER.debug("update() - {} - needsToUpdate is false", getFileName());
+      LOGGER.log(Level.FINE, "update() - {} - needsToUpdate is false", getFileName());
       return false;
     }
-    LOGGER.debug("update() - {} - needsToUpdate is true", getFileName());
+    LOGGER.log(Level.FINE, "update() - " + getFileName() + " - needsToUpdate is true");
     File directory = getFile().getParentFile();
     File backupLocation = new File(directory, getFile().getName().replace(YAML_ENDING, YAML_ENDING + BACKUP_ENDING));
     switch (updateType) {
@@ -184,21 +185,21 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
         if (getFile().exists()) {
           try {
             Files.copy(getFile(), backupLocation);
-            LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - backup performed", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_NO_UPDATE - backup performed");
           } catch (IOException e) {
-            LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - failure", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_NO_UPDATE - failure");
             return false;
           }
         }
-        LOGGER.debug("update() - {} - BACKUP_NO_UPDATE - backup successful", getFileName());
+        LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_NO_UPDATE - backup successful");
         return true;
       case BACKUP_AND_UPDATE:
         if (getFile().exists()) {
           try {
             Files.copy(getFile(), backupLocation);
-            LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - backup performed", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_UPDATE - backup performed", getFileName());
           } catch (IOException e) {
-            LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - backup failure", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_UPDATE - backup failure", getFileName());
             return false;
           }
         }
@@ -212,15 +213,15 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
         }
         set("version", getVersion());
         save();
-        LOGGER.debug("update() - {} - BACKUP_AND_UPDATE - update successful", getFileName());
+        LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_UPDATE - update successful", getFileName());
         return true;
       case BACKUP_AND_NEW:
         if (getFile().exists()) {
           try {
             Files.copy(getFile(), backupLocation);
-            LOGGER.debug("update() - {} - BACKUP_AND_NEW - backup performed", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_NEW - backup performed", getFileName());
           } catch (IOException e) {
-            LOGGER.debug("update() - {} - BACKUP_AND_NEW - backup failure", getFileName());
+            LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_NEW - backup failure", getFileName());
             return false;
           }
         }
@@ -235,7 +236,7 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
         }
         set("version", getVersion());
         save();
-        LOGGER.debug("update() - {} - BACKUP_AND_NEW - update successful", getFileName());
+        LOGGER.log(Level.FINE, "update() - " + getFileName() + " - BACKUP_AND_NEW - update successful", getFileName());
         return true;
       case NOTHING:
         return true;

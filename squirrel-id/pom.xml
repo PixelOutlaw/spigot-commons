@@ -29,11 +29,11 @@
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.12.2.2</version>
+    <version>1.12.2.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>squirrel-id</artifactId>
-  <version>1.12.2.2</version>
+  <version>1.12.2.3-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
