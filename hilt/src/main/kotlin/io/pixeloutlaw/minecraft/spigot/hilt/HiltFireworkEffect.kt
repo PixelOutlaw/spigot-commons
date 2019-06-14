@@ -27,7 +27,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.FireworkEffectMeta
 
-class HiltFireworkEffect(effect: FireworkEffect) : ItemStack(Material.FIREWORK_STAR) {
+open class HiltFireworkEffect(effect: FireworkEffect) : ItemStack(Material.FIREWORK_STAR) {
     var fireworkEffect: FireworkEffect?
         get() = getFromItemMetaAs<FireworkEffectMeta, FireworkEffect?> {
             if (hasEffect()) {

@@ -26,7 +26,7 @@ import org.bukkit.OfflinePlayer
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.SkullMeta
 
-class HiltSkull(skullType: SkullType, owner: OfflinePlayer) : ItemStack(skullType.material) {
+open class HiltSkull(skullType: SkullType, owner: OfflinePlayer) : ItemStack(skullType.material) {
     var owner: OfflinePlayer?
         get() = getFromItemMetaAs<SkullMeta, OfflinePlayer?> {
             if (hasOwner()) {

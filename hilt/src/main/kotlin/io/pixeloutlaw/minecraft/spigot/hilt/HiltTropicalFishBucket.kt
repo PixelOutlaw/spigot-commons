@@ -28,7 +28,7 @@ import org.bukkit.entity.TropicalFish
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.TropicalFishBucketMeta
 
-class HiltTropicalFishBucket(
+open class HiltTropicalFishBucket(
     bodyColor: DyeColor,
     pattern: TropicalFish.Pattern,
     patternColor: DyeColor

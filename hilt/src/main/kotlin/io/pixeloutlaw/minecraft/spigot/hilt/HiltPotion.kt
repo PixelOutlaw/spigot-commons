@@ -27,7 +27,7 @@ import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffect
 
-class HiltPotion(
+open class HiltPotion(
     potionType: PotionType,
     private val originalPotionData: PotionData,
     effects: Collection<PotionEffect>

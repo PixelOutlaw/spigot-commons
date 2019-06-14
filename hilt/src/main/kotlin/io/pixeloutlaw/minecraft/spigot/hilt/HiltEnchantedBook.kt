@@ -28,7 +28,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.EnchantmentStorageMeta
 import java.util.HashMap
 
-class HiltEnchantedBook(enchantmentMap: Map<Enchantment, Int>) : ItemStack(Material.ENCHANTED_BOOK) {
+open class HiltEnchantedBook(enchantmentMap: Map<Enchantment, Int>) : ItemStack(Material.ENCHANTED_BOOK) {
     var storedEnchantments: Map<Enchantment, Int>
         get() {
             return if (itemMeta is EnchantmentStorageMeta) {

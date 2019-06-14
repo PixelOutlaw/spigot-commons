@@ -25,7 +25,7 @@ package io.pixeloutlaw.minecraft.spigot.hilt
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BookMeta
 
-class HiltBook(bookType: BookType) : ItemStack(bookType.material) {
+open class HiltBook(bookType: BookType) : ItemStack(bookType.material) {
     var author: String?
         get() = getFromItemMetaAs<BookMeta, String?> {
             if (hasAuthor()) {
