@@ -26,7 +26,7 @@ import org.bukkit.block.banner.Pattern
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.BannerMeta
 
-class HiltBanner(bannerType: BannerType, patterns: Collection<Pattern>) : ItemStack(bannerType.mat) {
+open class HiltBanner(bannerType: BannerType, patterns: Collection<Pattern>) : ItemStack(bannerType.mat) {
     var patterns: Collection<Pattern>
         get() = getFromItemMetaAs<BannerMeta, Collection<Pattern>> { patterns } ?: listOf()
         set(value) {

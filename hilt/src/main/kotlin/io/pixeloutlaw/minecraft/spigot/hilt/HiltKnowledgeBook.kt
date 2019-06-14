@@ -27,7 +27,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.KnowledgeBookMeta
 
-class HiltKnowledgeBook(recipes: List<NamespacedKey>) : ItemStack(Material.KNOWLEDGE_BOOK) {
+open class HiltKnowledgeBook(recipes: List<NamespacedKey>) : ItemStack(Material.KNOWLEDGE_BOOK) {
     var recipes: List<NamespacedKey>
         get() = getFromItemMetaAs<KnowledgeBookMeta, List<NamespacedKey>> { recipes } ?: listOf()
         set(value) {

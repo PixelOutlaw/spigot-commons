@@ -26,7 +26,7 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.MapMeta
 
-class HiltMap(scalable: Boolean) : ItemStack(Material.FILLED_MAP) {
+open class HiltMap(scalable: Boolean) : ItemStack(Material.FILLED_MAP) {
     var scalable: Boolean
         get() = getFromItemMetaAs<MapMeta, Boolean> { isScaling } ?: false
         set(value) {

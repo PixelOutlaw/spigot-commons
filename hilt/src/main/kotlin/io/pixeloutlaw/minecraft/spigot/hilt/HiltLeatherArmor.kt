@@ -27,7 +27,7 @@ import org.bukkit.Color
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.LeatherArmorMeta
 
-class HiltLeatherArmor(type: LeatherArmorType, color: Color) : ItemStack(type.mat) {
+open class HiltLeatherArmor(type: LeatherArmorType, color: Color) : ItemStack(type.mat) {
     var color: Color
         get() = getFromItemMetaAs<LeatherArmorMeta, Color> { color } ?: Bukkit.getItemFactory().defaultLeatherColor
         set(value) {
