@@ -71,11 +71,11 @@ inline fun <reified IM : ItemMeta> ItemStack.hasItemMetaOf(): Boolean {
     return this.itemMeta is IM
 }
 
-inline fun <reified IM: ItemMeta> ItemStack.getItemMetaAs(): IM? {
+inline fun <reified IM : ItemMeta> ItemStack.getItemMetaAs(): IM? {
     return this.itemMeta as? IM
 }
 
-inline fun <reified IM: ItemMeta, R> ItemStack.getFromItemMetaAs(action: IM.() -> R): R? {
+inline fun <reified IM : ItemMeta, R> ItemStack.getFromItemMetaAs(action: IM.() -> R): R? {
     return (this.itemMeta as? IM)?.run(action)
 }
 
@@ -191,3 +191,15 @@ fun ItemStack.setLore(list: List<String>) =
 
 fun ItemStack.setUnbreakable(unbreakable: Boolean) =
     getThenSetItemMeta { this.isUnbreakable = unbreakable }
+
+fun ItemStack.hasCustomModelData() = this.itemMeta?.hasCustomModelData() ?: false
+
+fun ItemStack.getCustomModelData(): Int? = this.itemMeta?.let {
+    return if (it.hasCustomModelData()) {
+        it.customModelData
+    } else {
+        null
+    }
+}
+
+fun ItemStack.setCustomModelData(customModelData: Int) = getThenSetItemMeta { this.setCustomModelData(customModelData) }
