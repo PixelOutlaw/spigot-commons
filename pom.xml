@@ -34,7 +34,7 @@
 
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.14.4.3-SNAPSHOT</version>
+    <version>1.14.4.2</version>
     <packaging>pom</packaging>
 
     <repositories>
