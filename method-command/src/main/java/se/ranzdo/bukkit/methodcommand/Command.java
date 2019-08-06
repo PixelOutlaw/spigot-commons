@@ -60,4 +60,9 @@ public @interface Command {
    * do not have permission to use the command.
    */
   String[] permissions() default {};
+
+  /**
+   * If this command is only available in development (default false). Determined based on plugin version.
+   */
+  boolean onlyDevelopment() default false;
 }
