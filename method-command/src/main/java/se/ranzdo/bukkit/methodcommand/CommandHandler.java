@@ -221,6 +221,9 @@ public class CommandHandler implements CommandExecutor {
       if (commandAnno == null) {
         continue;
       }
+      if (commandAnno.onlyDevelopment() && !plugin.getDescription().getVersion().contains("-SNAPSHOT")) {
+        continue;
+      }
 
       String[] identifiers = commandAnno.identifier().split(" ");
       if (identifiers.length == 0) {
