@@ -29,12 +29,12 @@
     <parent>
         <groupId>io.pixeloutlaw</groupId>
         <artifactId>spigot-plugin-parent</artifactId>
-        <version>1.14.4.0</version>
+        <version>1.15.1.3</version>
     </parent>
 
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.14.4.4-SNAPSHOT</version>
+    <version>1.15.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <repositories>
