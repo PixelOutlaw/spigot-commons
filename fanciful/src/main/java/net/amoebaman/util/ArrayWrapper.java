@@ -36,8 +36,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @param <E> The type of elements in the array.
  * @author Glen Husman
- * @see Arrays
- */
+*/
 public final class ArrayWrapper<E> {
 
   private E[] _array;
@@ -106,8 +105,7 @@ public final class ArrayWrapper<E> {
   /**
    * Determines if this object has a value equivalent to another object.
    *
-   * @see Arrays#equals(Object[], Object[])
-   */
+*/
   @SuppressWarnings("rawtypes")
   @Override
   public boolean equals(Object other) {
@@ -121,8 +119,7 @@ public final class ArrayWrapper<E> {
    * Gets the hash code represented by this objects value.
    *
    * @return This object's hash code.
-   * @see Arrays#hashCode(Object[])
-   */
+*/
   @Override
   public int hashCode() {
     return Arrays.hashCode(_array);

@@ -29,7 +29,7 @@
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.14.4.3</version>
+    <version>1.15.1.0</version>
   </parent>
 
   <artifactId>fanciful</artifactId>

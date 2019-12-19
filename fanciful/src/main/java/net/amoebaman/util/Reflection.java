@@ -157,8 +157,7 @@ public final class Reflection {
    * @param clazz The class which contains the field to retrieve.
    * @param name The declared name of the field in the class.
    * @return A field object with the specified name declared by the specified class.
-   * @see Class#getDeclaredField(String)
-   */
+*/
   public synchronized static Field getField(Class<?> clazz, String name) {
     Map<String, Field> loaded;
     if (!_loadedFields.containsKey(clazz)) {
