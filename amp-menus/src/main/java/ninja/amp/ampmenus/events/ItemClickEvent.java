@@ -23,6 +23,7 @@
 package ninja.amp.ampmenus.events;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 
 /**
  * An event called when an Item in the {@link ninja.amp.ampmenus.menus.ItemMenu} is clicked.
@@ -33,15 +34,16 @@ public class ItemClickEvent {
   private boolean goBack = false;
   private boolean close = false;
   private boolean update = false;
-  private boolean shiftClick = false;
+  private final ClickType clickType;
 
   public ItemClickEvent(Player player) {
     this.player = player;
+    this.clickType = ClickType.UNKNOWN;
   }
 
-  public ItemClickEvent(Player player, boolean shiftClick) {
+  public ItemClickEvent(Player player, ClickType clickType) {
     this.player = player;
-    this.shiftClick = shiftClick;
+    this.clickType = clickType;
   }
 
   /**
@@ -119,8 +121,8 @@ public class ItemClickEvent {
     }
   }
 
-  public boolean isShiftClick() {
-    return shiftClick;
+  public ClickType getClickType() {
+    return clickType;
   }
 
 }

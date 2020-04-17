@@ -209,13 +209,12 @@ public class ItemMenu {
   /**
    * Handles InventoryClickEvents for the {@link ItemMenu}.
    */
-  @SuppressWarnings("deprecation")
   public void onInventoryClick(InventoryClickEvent event) {
     if (event.getClick() == ClickType.LEFT) {
       int slot = event.getRawSlot();
       if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
         Player player = (Player) event.getWhoClicked();
-        ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.isShiftClick());
+        ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.getClick());
         items[slot].onItemClick(itemClickEvent);
         if (itemClickEvent.willUpdate()) {
           update(player);
