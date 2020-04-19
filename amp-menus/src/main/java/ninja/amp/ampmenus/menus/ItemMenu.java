@@ -1,24 +1,20 @@
 /**
- * The MIT License
- * Copyright (c) 2015 Teal Cube Games
+ * The MIT License Copyright (c) 2015 Teal Cube Games
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package ninja.amp.ampmenus.menus;
 
@@ -171,7 +167,8 @@ public class ItemMenu {
       MenuListener.getInstance().register(plugin);
     }
     Inventory inventory = Bukkit
-        .createInventory(new MenuHolder(this, Bukkit.createInventory(player, size.getSize())), size.getSize(), name);
+        .createInventory(new MenuHolder(this, Bukkit.createInventory(player, size.getSize())),
+            size.getSize(), name);
     apply(inventory, player);
     player.openInventory(inventory);
   }
@@ -185,7 +182,8 @@ public class ItemMenu {
   public void update(Player player) {
     if (player.getOpenInventory() != null) {
       Inventory inventory = player.getOpenInventory().getTopInventory();
-      if (inventory.getHolder() instanceof MenuHolder && ((MenuHolder) inventory.getHolder()).getMenu().equals(this)) {
+      if (inventory.getHolder() instanceof MenuHolder && ((MenuHolder) inventory.getHolder())
+          .getMenu().equals(this)) {
         apply(inventory, player);
         player.updateInventory();
       }
@@ -210,34 +208,32 @@ public class ItemMenu {
    * Handles InventoryClickEvents for the {@link ItemMenu}.
    */
   public void onInventoryClick(InventoryClickEvent event) {
-    if (event.getClick() == ClickType.LEFT) {
-      int slot = event.getRawSlot();
-      if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
-        Player player = (Player) event.getWhoClicked();
-        ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.getClick());
-        items[slot].onItemClick(itemClickEvent);
-        if (itemClickEvent.willUpdate()) {
-          update(player);
-        } else {
-          player.updateInventory();
-          if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
-            final String playerName = player.getName();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-              Player p = Bukkit.getPlayerExact(playerName);
-              if (p != null) {
-                p.closeInventory();
-              }
-            }, 1);
-          }
-          if (itemClickEvent.willGoBack() && hasParent()) {
-            final String playerName = player.getName();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-              Player p = Bukkit.getPlayerExact(playerName);
-              if (p != null) {
-                parent.open(p);
-              }
-            }, 3);
-          }
+    int slot = event.getRawSlot();
+    if (slot >= 0 && slot < size.getSize() && items[slot] != null) {
+      Player player = (Player) event.getWhoClicked();
+      ItemClickEvent itemClickEvent = new ItemClickEvent(player, event.getClick());
+      items[slot].onItemClick(itemClickEvent);
+      if (itemClickEvent.willUpdate()) {
+        update(player);
+      } else {
+        player.updateInventory();
+        if (itemClickEvent.willClose() || itemClickEvent.willGoBack()) {
+          final String playerName = player.getName();
+          Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            Player p = Bukkit.getPlayerExact(playerName);
+            if (p != null) {
+              p.closeInventory();
+            }
+          }, 1);
+        }
+        if (itemClickEvent.willGoBack() && hasParent()) {
+          final String playerName = player.getName();
+          Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            Player p = Bukkit.getPlayerExact(playerName);
+            if (p != null) {
+              parent.open(p);
+            }
+          }, 3);
         }
       }
     }
