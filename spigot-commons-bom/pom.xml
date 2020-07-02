@@ -49,7 +49,7 @@
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
-        <artifactId>fanciful</artifactId>
+        <artifactId>garbage-can</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
