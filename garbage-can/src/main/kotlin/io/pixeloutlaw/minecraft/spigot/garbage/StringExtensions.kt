@@ -24,6 +24,25 @@ package io.pixeloutlaw.minecraft.spigot.garbage
 
 import org.bukkit.ChatColor
 
+private val chatColorReplacementMap = ChatColor.values().flatMap {
+    listOf(
+        "<${it.name}>" to it,
+        "<${it.name.replace("_", " ")}>" to it,
+        "<${it.name.replace("_", "")}>" to it,
+        it.toString().replace(ChatColor.COLOR_CHAR, '&') to it
+    )
+}.toMap()
+
+/**
+ * Replaces all arguments (first item in pair) with their values (second item in pair). Ignores arrays where
+ * there are less than two items.
+ *
+ * @param args Pairs of arguments to replace
+ * @return copy of [String] with arguments replaced
+ */
+fun String.replaceArgs(args: Array<Array<String>>): String =
+    args.filter { it.size >= 2 }.fold(this, { acc, strings -> acc.replace(strings[0], strings[1]) })
+
 /**
  * Replaces all arguments (first item in pair) with their values (second item in pair).
  *
@@ -39,13 +58,14 @@ fun String.replaceArgs(vararg args: Pair<String, String>): String =
  * @param args Pairs of arguments to replace
  * @return copy of [String] with arguments replaced
  */
-fun String.replaceArgs(args: Collection<Pair<String, String>>): String =
+fun String.replaceArgs(args: Iterable<Pair<String, String>>): String =
     args.fold(this) { acc, pair -> acc.replace(pair.first, pair.second) }
 
 /**
  * Replaces all ampersands with [ChatColor.COLOR_CHAR] and all instances of two [ChatColor.COLOR_CHAR] with ampersands.
  */
-fun String.chatColorize(): String = this.replace('&', '\u00A7').replace("\u00A7\u00A7", "&")
+fun String.chatColorize(): String =
+    chatColorReplacementMap.entries.fold(this, { acc, entry -> acc.replace(entry.key, entry.value.toString()) })
 
 /**
  * Replaces all [ChatColor.COLOR_CHAR] with ampersands.

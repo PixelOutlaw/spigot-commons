@@ -22,8 +22,9 @@
  */
 package io.pixeloutlaw.minecraft.spigot.garbage
 
-fun List<String>.replaceArgs(vararg args: Pair<String, String>): List<String> = map { it.replaceArgs(*args) }
-fun List<String>.replaceArgs(args: Collection<Pair<String, String>>): List<String> = map { it.replaceArgs(args) }
+fun List<String>.replaceArgs(args: Array<Array<String>>): List<String> = map { it.replaceArgs(args) }
+fun List<String>.replaceArgs(vararg args: Pair<String, String>): List<String> = map { it.replaceArgs(args.asIterable()) }
+fun List<String>.replaceArgs(args: Iterable<Pair<String, String>>): List<String> = map { it.replaceArgs(args) }
 
 fun List<String>.replaceWithCollection(element: String, collection: Collection<String>): List<String> {
     val index = indexOf(element)
