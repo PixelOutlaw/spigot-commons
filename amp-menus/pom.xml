@@ -28,8 +28,9 @@
 
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
-    <artifactId>spigot-commons-parent</artifactId>
+    <artifactId>spigot-commons-bom</artifactId>
     <version>1.16.1.6-SNAPSHOT</version>
+    <relativePath>../spigot-commons-bom</relativePath>
   </parent>
 
   <artifactId>amp-menus</artifactId>
