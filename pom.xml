@@ -29,7 +29,7 @@
     <parent>
         <groupId>io.pixeloutlaw</groupId>
         <artifactId>spigot-plugin-parent</artifactId>
-        <version>1.16.3.0</version>
+        <version>1.16.4.0</version>
     </parent>
 
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
@@ -40,7 +40,7 @@
     <repositories>
         <repository>
             <id>central</id>
-            <name>bintray</name>
+            <name>JCenter</name>
             <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
@@ -50,7 +50,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.9</version>
+                <version>3.10</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
