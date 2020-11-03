@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.commons.lang3.math.NumberUtils;
 
 public final class MasterConfiguration {
 
@@ -41,6 +40,42 @@ public final class MasterConfiguration {
     MasterConfiguration masterConfiguration = new MasterConfiguration();
     masterConfiguration.load(configurations);
     return masterConfiguration;
+  }
+
+  private static double toDouble(String str, double defaultValue) {
+    if (str == null) {
+      return defaultValue;
+    } else {
+      try {
+        return Double.parseDouble(str);
+      } catch (NumberFormatException numberFormatException) {
+        return defaultValue;
+      }
+    }
+  }
+
+  private static int toInt(String str, int defaultValue) {
+    if (str == null) {
+      return defaultValue;
+    } else {
+      try {
+        return Integer.parseInt(str);
+      } catch (NumberFormatException numberFormatException) {
+        return defaultValue;
+      }
+    }
+  }
+
+  private static long toLong(String str, long defaultValue) {
+    if (str == null) {
+      return defaultValue;
+    } else {
+      try {
+        return Long.parseLong(str);
+      } catch (NumberFormatException numberFormatException) {
+        return defaultValue;
+      }
+    }
   }
 
   public void load(SmartConfiguration... configurations) {
@@ -151,7 +186,7 @@ public final class MasterConfiguration {
       return (Integer) val;
     }
     if (val instanceof String) {
-      return NumberUtils.toInt((String) val, fallback);
+      return toInt((String) val, fallback);
     }
     return fallback;
   }
@@ -169,7 +204,7 @@ public final class MasterConfiguration {
       return (Long) val;
     }
     if (val instanceof String) {
-      return NumberUtils.toLong((String) val, fallback);
+      return toLong((String) val, fallback);
     }
     return fallback;
   }
@@ -187,7 +222,7 @@ public final class MasterConfiguration {
       return (Double) val;
     }
     if (val instanceof String) {
-      return NumberUtils.toDouble((String) val, fallback);
+      return toDouble((String) val, fallback);
     }
     return fallback;
   }
