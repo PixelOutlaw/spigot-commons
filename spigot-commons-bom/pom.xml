@@ -29,7 +29,7 @@
   <parent>
     <groupId>io.pixeloutlaw.spigot-commons</groupId>
     <artifactId>spigot-commons-parent</artifactId>
-    <version>1.16.4.2-SNAPSHOT</version>
+    <version>1.16.4.2</version>
   </parent>
 
   <artifactId>spigot-commons-bom</artifactId>
@@ -40,32 +40,32 @@
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>amp-menus</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>bandsaw</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>config</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>garbage-can</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>hilt</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
       <dependency>
         <groupId>io.pixeloutlaw.spigot-commons</groupId>
         <artifactId>method-command</artifactId>
-        <version>1.16.4.2-SNAPSHOT</version>
+        <version>1.16.4.2</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
