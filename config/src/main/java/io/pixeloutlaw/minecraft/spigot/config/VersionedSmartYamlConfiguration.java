@@ -24,17 +24,13 @@ package io.pixeloutlaw.minecraft.spigot.config;
 
 import com.github.zafarkhaja.semver.Version;
 import com.google.common.io.Files;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An extension of SmartYamlConfiguration that can backup and update itself.
@@ -154,10 +150,12 @@ public class VersionedSmartYamlConfiguration extends SmartYamlConfiguration impl
     @Override
     public boolean needsToUpdate() {
         LOGGER.log(Level.FINE, String.format("%s version=\"%s\" localVersion=\"%s\"", getFileName(), getVersion(), getLocalVersion()));
-        if (StringUtils.isBlank(getVersion())) {
+        String versionString = getVersion();
+        String localVersionString = getLocalVersion();
+        if (versionString == null || versionString.trim().isEmpty()) {
             return false;
         }
-        if (StringUtils.isBlank(getLocalVersion())) {
+        if (localVersionString == null || localVersionString.trim().isEmpty()) {
             return true;
         }
         Version version = Version.valueOf(getVersion());
