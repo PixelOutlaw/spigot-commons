@@ -32,6 +32,7 @@ private val chatColorReplacementMap = ChatColor.values().flatMap {
         it.toString().replace(ChatColor.COLOR_CHAR, '&') to it
     )
 }.toMap()
+private val whiteSpaceRegex = "\\s+".toRegex()
 
 /**
  * Replaces all arguments (first item in pair) with their values (second item in pair). Ignores arrays where
@@ -101,4 +102,19 @@ fun String.endsWithAny(list: List<String>, ignoreCase: Boolean = false): Boolean
         }
     }
     return false
+}
+
+/**
+ * Converts a string to Title Case.
+ *
+ * Example: "a boy went to the park".toTitleCase() == "A Boy Went To The Park"
+ */
+fun String.toTitleCase(): String {
+    return split(whiteSpaceRegex).joinToString(separator = " ") {
+        if (it.length > 1) {
+            "${it.substring(0, 1).toUpperCase()}${it.substring(1).toLowerCase()}"
+        } else {
+            it.toUpperCase()
+        }
+    }
 }

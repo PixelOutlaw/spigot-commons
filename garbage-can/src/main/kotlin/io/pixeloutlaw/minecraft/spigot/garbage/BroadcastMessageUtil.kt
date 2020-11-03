@@ -25,7 +25,6 @@ package io.pixeloutlaw.minecraft.spigot.garbage
 import io.pixeloutlaw.minecraft.spigot.hilt.getDisplayName
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
-import org.apache.commons.text.WordUtils
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -85,9 +84,8 @@ object BroadcastMessageUtil {
         val broadcastComponent = TextComponent("")
         val itemStackName = when (visibility) {
             BroadcastItemVisibility.HIDE -> "[Item]"
-            BroadcastItemVisibility.SHOW -> itemStack.getDisplayName() ?: WordUtils.capitalizeFully(
-                itemStack.type.name.split("_").joinToString(" ")
-            )
+            BroadcastItemVisibility.SHOW -> itemStack.getDisplayName() ?: itemStack.type.name.split("_")
+                .joinToString(" ").toTitleCase()
         }
         val itemStackNameComponent = TextComponent()
         TextComponent.fromLegacyText(itemStackName).forEach {
