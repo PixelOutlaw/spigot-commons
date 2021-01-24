@@ -28,6 +28,7 @@ import kotlin.reflect.KClass
 /**
  * Utility for getting a [Logger] with file logging defaults.
  */
+@Deprecated("Use log4k instead")
 object JulLoggerFactory {
     private val cachedLoggers = mutableMapOf<String, Logger>()
     private val loggerCustomizers = mutableMapOf<String, List<BandsawLoggerCustomizer>>()

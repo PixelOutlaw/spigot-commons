@@ -4,6 +4,10 @@
 Bandsaw is a utility library for getting sensibly formatted logs written
 to a file for Spigot plugins.
 
+## Deprecated
+
+Use the log4k library instead: https://github.com/saschpe/log4k
+
 ## Usage
 
 First, you need to create a `PluginFileHandler` by passing in your plugin. Then you can pass customizers
