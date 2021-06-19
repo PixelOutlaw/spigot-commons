@@ -28,7 +28,7 @@ import kotlin.reflect.KClass
 /**
  * Utility for getting a [Logger] with file logging defaults.
  */
-@Deprecated("Use log4k instead")
+@Deprecated("Use kindling instead")
 object JulLoggerFactory {
     private val cachedLoggers = mutableMapOf<String, Logger>()
     private val loggerCustomizers = mutableMapOf<String, List<BandsawLoggerCustomizer>>()
@@ -41,9 +41,9 @@ object JulLoggerFactory {
 
     @JvmStatic
     fun getLogger(name: String) = cachedLoggers.getOrPut(name) {
-        getCustomizersForName(name).fold(Logger.getLogger(name), { logger, customizer ->
+        getCustomizersForName(name).fold(Logger.getLogger(name)) { logger, customizer ->
             customizer.customize(name, logger)
-        })
+        }
     }
 
     /**
