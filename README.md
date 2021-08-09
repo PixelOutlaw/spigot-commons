@@ -40,3 +40,16 @@ Add the following dependency to your POM:
     </dependencies>
 </dependencyManagement>
 ```
+
+
+## CI/CD
+
+### CI
+
+`mvn verify` will be run on every PR.
+
+### CD / Making a Release
+
+Creating a GitHub release will make a new release with the version from the GitHub release name and publish it to the
+Sonatype staging repository. You will need ToppleTheNun to log into the Sonatype account and release the update to
+Maven Central from the staging repository.
